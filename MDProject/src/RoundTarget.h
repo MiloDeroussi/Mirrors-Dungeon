@@ -15,7 +15,7 @@ public:
     bool                    isHitByMouse(const sf::Vector2i& mousePosition) const;
     void                    die();
 
-private:
+protected:
     bool					mIsMovingUp{ false };
     bool					mIsMovingDown{ false };
     bool					mIsMovingRight{ false };

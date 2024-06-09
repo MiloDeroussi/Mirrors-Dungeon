@@ -2,14 +2,13 @@
 
 using namespace std;
 
-BouclierMiroir::BouclierMiroir() : RoundTarget(40.0, sf::Color::Blue, 300, 100, 0, 0) {}
-
-void BouclierMiroir::reflect(const sf::Vector2i& mousePosition) {
-	if (this->isHitByMouse(mousePosition)) {
-		this->setColor(sf::Color::Red);
-	}
+BouclierMiroir::BouclierMiroir(string text) : RoundTarget(40.0, sf::Color::White, 300, 200, 0, 0) {
+	sf::Texture texture;
+	texture.loadFromFile(text);
+	TextureBouc = texture;
+	this->mShape.setTexture(&TextureBouc);
 }
 
-void BouclierMiroir::render(sf::RenderWindow& window) const {
+void BouclierMiroir::render(sf::RenderWindow& window) {
 	window.draw(mShape);
 }

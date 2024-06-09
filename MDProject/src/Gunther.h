@@ -6,8 +6,8 @@
 
 class Gunther : public Blessable {
 private:
-	Pistolet pistolet = Pistolet(true, 0, 0, 20);
-	BouclierMiroir bouclier = BouclierMiroir();
+	Pistolet pistolet = Pistolet(true, 0, 0, 20, "resources/Pistolet.png");
+	BouclierMiroir bouclier = BouclierMiroir("resources/BouclierMiroir.png");
 	double damage;
 
 public:

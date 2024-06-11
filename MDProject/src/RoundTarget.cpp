@@ -51,9 +51,3 @@ bool RoundTarget::isHitByMouse(const sf::Vector2f& mousePosition) const {
     }
     return false;
 }
-
-void RoundTarget::move(sf::Vector2f& mousePosition) {
-    mousePosition.x -= this->mShape.getRadius();
-    mousePosition.y -= this->mShape.getRadius();
-    this->setPosition(mousePosition);
-}

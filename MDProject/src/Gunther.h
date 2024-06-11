@@ -5,11 +5,12 @@
 #include "Blessable.h"
 
 class Gunther : public Blessable {
-private:
-	Pistolet pistolet = Pistolet(true, 0, 0, 20, "resources/Pistolet.png");
-	BouclierMiroir bouclier = BouclierMiroir("resources/BouclierMiroir.png");
-	double damage;
+protected:
+	Pistolet pistolet = Pistolet(true, 500, 400, "resources/Pistolet.png");
+	BouclierMiroir bouclier = BouclierMiroir(200, 400, "resources/BouclierMiroir.png");
 
 public:
-	explicit Gunther(double health, double damage);
+	explicit Gunther(double health);
+	BouclierMiroir& getBouclier();
+	Pistolet& getPistolet();
 };

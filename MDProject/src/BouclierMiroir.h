@@ -4,8 +4,9 @@
 
 class BouclierMiroir : public RoundTarget {
 public:
-	explicit BouclierMiroir(std::string text);
+	explicit BouclierMiroir(double x, double y, std::string text);
 	void render(sf::RenderWindow& window);
+	void move(sf::Vector2f& mousePosition) override;
 
 private:
 	sf::Texture TextureBouc;

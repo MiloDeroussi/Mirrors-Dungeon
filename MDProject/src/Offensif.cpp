@@ -7,7 +7,7 @@ Offensif::Offensif(double health, double x, double y, string pattern, double att
 	this->attack = attack;
 	vector<Balle> munitions;
 	for (int i = 0; i < mun_max; i++) {
-		Balle balle(false, x, y, 20);
+		Balle balle(false, x, y, attack, "resources/BalleEnnemi.png");
 		munitions.push_back(balle);
 	}
 	this->ballePool = munitions;

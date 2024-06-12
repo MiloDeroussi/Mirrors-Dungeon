@@ -1,0 +1,429 @@
+<?xml version="1.0"?>
+<pool>
+    <esalle>
+        <difficulty_rank_1> 
+
+            <salle>
+                <id> es1 </id>
+                <nb_enemies> 1 </nb_enemies>
+                <ennemi> 
+                    <nom> demon </nom>
+                    <xpos> 1 </xpos>
+                    <ypos> 1 </ypos>
+                    <pattern> h_line </pattern>
+                </ennemi>
+            </salle>
+
+            <salle>
+                <id> es2 </id>
+                <nb_enemies> 3 </nb_enemies>
+                <ennemi> 
+                    <nom> demon_mineur </nom>
+                    <xpos> 1 </xpos>
+                    <ypos> 1 </ypos>
+                    <pattern> v_line </pattern>
+                </ennemi>
+
+                <ennemi> 
+                    <nom> demon_mineur </nom>
+                    <xpos> 2 </xpos>
+                    <ypos> 2 </ypos>
+                    <pattern> v_line </pattern>
+                </ennemi>
+
+                <ennemi> 
+
+                    <nom> demon_mineur </nom>
+                    <xpos> 3 </xpos>
+                    <ypos> 3 </ypos>
+                    <pattern> v_line </pattern>
+                </ennemi>
+            </salle>
+
+            <salle>
+                <id> es3 </id>
+                <nb_enemies> 1 </nb_enemies>
+                <ennemi> 
+                    <nom> demon </nom>
+                    <xpos> 1 </xpos>
+                    <ypos> 1 </ypos>
+                    <pattern> v_line </pattern>
+                </ennemi>
+            </salle>
+
+            <salle>
+                <id> es4 </id>
+                <nb_enemies> 2 </nb_enemies>
+                <ennemi> 
+                    <nom> demon_shield </nom>
+                    <xpos> 1 </xpos>
+                    <ypos> 1 </ypos>
+                    <pattern> h_line </pattern>
+                </ennemi>
+
+                <ennemi> 
+                    <nom> demon_shield </nom>
+                    <xpos> 2 </xpos>
+                    <ypos> 2 </ypos>
+                    <pattern> h_line </pattern>
+                </ennemi>
+            </salle>
+
+            <salle>
+                <id> es5 </id>
+                <nb_enemies> 2 </nb_enemies>
+
+                <ennemi> 
+                    <nom> demon </nom>
+                    <xpos> 1 </xpos>
+                    <ypos> 1 </ypos>
+                    <pattern> h_line </pattern>
+                </ennemi>
+
+                <ennemi> 
+                    <nom> demon_shield </nom>
+                    <xpos> 2 </xpos>
+                    <ypos> 2 </ypos>
+                    <pattern> h_line </pattern>
+                </ennemi>
+            </salle>
+
+            <salle>
+                <id> es6 </id>
+                <nb_enemies> 3 </nb_enemies>
+                <ennemi> 
+                    <nom> demon_mineur </nom>
+                    <xpos> 1 </xpos>
+                    <ypos> 1 </ypos>
+                    <pattern> v_line </pattern>
+                </ennemi>
+                <ennemi> 
+                    <nom> demon_mineur </nom>
+                    <xpos> 3 </xpos>
+                    <ypos> 3 </ypos>
+                    <pattern> v_line </pattern>
+                </ennemi>
+                <ennemi> 
+                    <nom> demon_shield </nom>
+                    <xpos> 2 </xpos>
+                    <ypos> 2 </ypos>
+                    <pattern> v_line </pattern>
+                </ennemi>
+            </salle>
+
+            <salle>
+                <id> es7 </id>
+                <nb_enemies> 1 </nb_enemies>
+                <ennemi> 
+                    <nom> demon </nom>
+                    <xpos> 2 </xpos>
+                    <ypos> 2 </ypos>
+                    <pattern> circle </pattern>
+                </ennemi>
+            </salle>
+
+            <salle>
+                <id> es8 </id>
+                <nb_enemies> 2 </nb_enemies>
+                <ennemi> 
+                    <nom> demon </nom>
+                    <xpos> 1 </xpos>
+                    <ypos> 1 </ypos>
+                    <pattern> v_line </pattern>
+                </ennemi>
+                <ennemi> 
+                    <nom> demon </nom>
+                    <xpos> 2 </xpos>
+                    <ypos> 2 </ypos>
+                    <pattern> v_line </pattern>
+                </ennemi>
+            </salle>
+        </difficulty_rank_1>
+
+        <mini_boss>
+            <salle>
+                <id> mb1 </id>
+                <nb_enemies> 3 </nb_enemies>
+                <ennemi> 
+                    <nom> demon_majeur </nom>
+                    <xpos> 1 </xpos>
+                    <ypos> 1 </ypos>
+                    <pattern> circle </pattern>
+                </ennemi>
+                <ennemi> 
+                    <nom> demon_miroir </nom>
+                    <xpos> 2 </xpos>
+                    <ypos> 2 </ypos>
+                    <pattern> h_line </pattern>
+                </ennemi>
+                <ennemi> 
+                    <nom> demon_miroir </nom>
+                    <xpos> 3 </xpos>
+                    <ypos> 3 </ypos>
+                    <pattern> h_line </pattern>
+                </ennemi>
+            </salle>
+
+            <salle>
+                <id> mb2 </id>
+                <nb_enemies> 3 </nb_enemies>
+                <ennemi> 
+                    <nom> demon_majeur </nom>
+                    <xpos> 1 </xpos>
+                    <ypos> 1 </ypos>
+                    <pattern> circle </pattern>
+                </ennemi>
+                <ennemi> 
+                    <nom> demon </nom>
+                    <xpos> 2 </xpos>
+                    <ypos> 2 </ypos>
+                    <pattern> v_line </pattern>
+                </ennemi>
+                <ennemi> 
+                    <nom> demon </nom>
+                    <xpos> 3 </xpos>
+                    <ypos> 3 </ypos>
+                    <pattern> v_line </pattern>
+                </ennemi>
+            </salle>
+        </mini_boss>
+
+        <difficulty_rank_2> 
+
+            <salle>
+                <id> es9 </id>
+                <nb_enemies> 1 </nb_enemies>
+                <ennemi> 
+                    <nom> beholder </nom>
+                    <xpos> 1 </xpos>
+                    <ypos> 1 </ypos>
+                    <pattern> circle </pattern>
+                </ennemi>
+            </salle>
+
+            <salle>
+                <id> es10 </id>
+                <nb_enemies> 1 </nb_enemies>
+                <ennemi> 
+                    <nom> demon </nom>
+                    <xpos> 1 </xpos>
+                    <ypos> 1 </ypos>
+                    <pattern> v_line </pattern>
+                </ennemi>
+
+                <ennemi> 
+                    <nom> demon </nom>
+                    <xpos> 2 </xpos>
+                    <ypos> 2 </ypos>
+                    <pattern> v_line </pattern>
+                </ennemi>
+            </salle>
+
+            <salle>
+                <id> es11 </id>
+                <nb_enemies> 2 </nb_enemies>
+                <ennemi> 
+                    <nom> demon_miroir </nom>
+                    <xpos> 1 </xpos>
+                    <ypos> 1 </ypos>
+                    <pattern> h_line </pattern>
+                </ennemi>
+                <ennemi> 
+                    <nom> demon_miroir </nom>
+                    <xpos> 2 </xpos>
+                    <ypos> 2 </ypos>
+                    <pattern> h_line </pattern>
+                </ennemi>
+            </salle>
+
+            <salle>
+                <id> es12 </id>
+                <nb_enemies> 2 </nb_enemies>
+                <ennemi> 
+                    <nom> demon_shield </nom>
+                    <xpos> 1 </xpos>
+                    <ypos> 1 </ypos>
+                    <pattern> circle </pattern>
+                </ennemi>
+
+                <ennemi> 
+                    <nom> beholder </nom>
+                    <xpos> 2 </xpos>
+                    <ypos> 2 </ypos>
+                    <pattern> v_line </pattern>
+                </ennemi>
+            </salle>
+
+            <salle>
+                <id> es13 </id>
+                <nb_enemies> 3 </nb_enemies>
+
+                <ennemi> 
+                    <nom> demon </nom>
+                    <xpos> 1 </xpos>
+                    <ypos> 1 </ypos>
+                    <pattern> h_line </pattern>
+                </ennemi>
+
+                <ennemi> 
+                    <nom> demon_miroir </nom>
+                    <xpos> 2 </xpos>
+                    <ypos> 2 </ypos>
+                    <pattern> v_line </pattern>
+                </ennemi>
+
+                <ennemi> 
+                    <nom> demon </nom>
+                    <xpos> 3 </xpos>
+                    <ypos> 3 </ypos>
+                    <pattern> h_line </pattern>
+                </ennemi>
+
+                <ennemi> 
+                    <nom> demon_miroir </nom>
+                    <xpos> 4 </xpos>
+                    <ypos> 4 </ypos>
+                    <pattern> v_line </pattern>
+                </ennemi>
+            </salle>
+
+            <salle>
+                <id> es14 </id>
+                <nb_enemies> 5 </nb_enemies>
+                <ennemi> 
+                    <nom> demon </nom>
+                    <xpos> 1 </xpos>
+                    <ypos> 1 </ypos>
+                    <pattern> static </pattern>
+                </ennemi>
+                <ennemi> 
+                    <nom> demon</nom>
+                    <xpos> 2 </xpos>
+                    <ypos> 2 </ypos>
+                    <pattern> static </pattern>
+                </ennemi>
+                <ennemi> 
+                    <nom> demon </nom>
+                    <xpos> 3 </xpos>
+                    <ypos> 3 </ypos>
+                    <pattern> static </pattern>
+                </ennemi>
+                <ennemi> 
+                    <nom> demon </nom>
+                    <xpos> 4 </xpos>
+                    <ypos> 4 </ypos>
+                    <pattern> static </pattern>
+                </ennemi>
+                <ennemi> 
+                    <nom> demon </nom>
+                    <xpos> 5 </xpos>
+                    <ypos> 5 </ypos>
+                    <pattern> static </pattern>
+                </ennemi>
+            </salle>
+
+            <salle>
+                <id> es15 </id>
+                <nb_enemies> 1 </nb_enemies>
+                <ennemi> 
+                    <nom> demon_mineur </nom>
+                    <xpos> 2 </xpos>
+                    <ypos> 2 </ypos>
+                    <pattern> circle </pattern>
+                </ennemi>
+            </salle>
+
+            <salle>
+                <id> es8 </id>
+                <nb_enemies> 2 </nb_enemies>
+                <ennemi> 
+                    <nom> beholder </nom>
+                    <xpos> 1 </xpos>
+                    <ypos> 1 </ypos>
+                    <pattern> h_line </pattern>
+                </ennemi>
+                <ennemi> 
+                    <nom> beholder </nom>
+                    <xpos> 2 </xpos>
+                    <ypos> 2 </ypos>
+                    <pattern> h_line </pattern>
+                </ennemi>
+            </salle>
+        </difficulty_rank_2>
+
+        <medium_boss>
+            <salle>
+                <id> lb1 </id>
+                <nb_enemies> 1 </nb_enemies>
+                <ennemi> 
+                    <nom> natas </nom>
+                    <xpos> 1 </xpos>
+                    <ypos> 1 </ypos>
+                    <pattern> natas </pattern>
+                </ennemi>
+            </salle>
+        </medium_boss>
+
+        <boss>
+            <salle>
+                <id> b1 </id>
+                <nb_enemies> 3 </nb_enemies>
+                <ennemi> 
+                    <nom> hildegarde </nom>
+                    <xpos> 1 </xpos>
+                    <ypos> 1 </ypos>
+                    <pattern> hildegarde </pattern>
+                </ennemi>
+                <ennemi> 
+                    <nom> demon </nom>
+                    <xpos> 2 </xpos>
+                    <ypos> 2 </ypos>
+                    <pattern> demon </pattern>
+                </ennemi>
+                <ennemi> 
+                    <nom> demon </nom>
+                    <xpos> 3 </xpos>
+                    <ypos> 3 </ypos>
+                    <pattern> demon </pattern>
+                </ennemi>
+            </salle>
+        </boss>
+    </esalle>
+
+    <hsalle>
+        <salle>
+            <id> hs1 </id>
+            <heal> 25 </heal>
+        </salle>
+        <salle>
+            <id> hs2 </id>
+            <heal> 50 </heal>
+        </salle>
+        <salle>
+            <id> hs3 </id>
+            <heal> 75 </heal>
+        </salle>
+        <salle>
+            <id> hs4 </id>
+            <heal> 100 </heal>
+        </salle>
+    </hsalle>
+
+    <usalle>
+        <salle>
+            <id> us1 </id>
+            <nb_upgrade> 1 </nb_upgrade>
+        </salle>
+        <salle>
+            <id> us1 </id>
+            <nb_upgrade> 2 </nb_upgrade>
+        </salle>
+        <salle>
+            <id> us1 </id>
+            <nb_upgrade> 3 </nb_upgrade>
+        </salle>
+    </usalle>
+    
+</pool>
+
+

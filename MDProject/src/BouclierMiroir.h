@@ -3,11 +3,10 @@
 #include "RoundTarget.h"
 
 class BouclierMiroir : public RoundTarget {
-public:
-	explicit BouclierMiroir(double x, double y, std::string text);
-	void render(sf::RenderWindow& window);
-	void move(sf::Vector2f& mousePosition) override;
-
 private:
 	sf::Texture TextureBouc;
+
+public:
+	explicit BouclierMiroir(double x, double y, const std::string& text);
+	void move(sf::Vector2f& mousePosition) override;
 };

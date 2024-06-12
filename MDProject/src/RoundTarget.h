@@ -1,23 +1,16 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 
-enum class RoundTargetStatus { Alive, Dying, Dead };
-
 class RoundTarget {
+private:
+    sf::Sprite mSprite;
+
 public:
-    RoundTarget(float radius, sf::Color color, float x, float y, float a, float b);
-    void drawCurrent(sf::RenderWindow& window) const;
-    sf::CircleShape getShape() const;
-    RoundTargetStatus getState() const;
+    RoundTarget(sf::Color color, double x, double y);
+    sf::Sprite& getSprite();
+    void render(sf::RenderWindow& window) const;
     void setColor(sf::Color c);
-    void setSpeed(float new_x, float new_y);
     bool isHitByMouse(const sf::Vector2f& mousePosition) const;
-    void die();
     void setPosition(const sf::Vector2f& mousePosition);
     virtual void move(sf::Vector2f& mousePosition) = 0;
-
-protected:
-    sf::CircleShape			mShape;
-    sf::Vector2f            mSpeed;
-    RoundTargetStatus       mState;
 };

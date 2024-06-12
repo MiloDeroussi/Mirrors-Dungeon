@@ -11,18 +11,18 @@ Game::Game() {
 	mStatisticsText.setCharacterSize(20);
 }
 
-Gunther Game::getGunther() {
+Gunther Game::getGunther() const {
 	return gunt;
 }
 
-void Game::processEvents(sf::Time elapsedTime) {
+void Game::processEvents() {
 	sf::Event event;
 	while (mWindow.pollEvent(event)) {
 		if (event.type == sf::Event::Closed) {
 			mWindow.close();
 		}
 		else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space) {
-			gunt.getPistolet().shoot(mWindow);
+			gunt.getPistolet().shoot();
 		}
 		draganddrop(event);
 	}
@@ -32,14 +32,12 @@ void Game::draganddrop(sf::Event event) {
 	if (event.type == sf::Event::MouseButtonPressed) {
 		auto localPosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
 		if (event.mouseButton.button == sf::Mouse::Left) {
-			if (gunt.getBouclier().getShape().getGlobalBounds().contains(localPosition)) {
+			if (gunt.getBouclier().getSprite().getGlobalBounds().contains(localPosition)) {
 				isDraggingBouclier = true;
 			}
 		}
-		else if (event.mouseButton.button == sf::Mouse::Right) {
-			if (gunt.getPistolet().getShape().getGlobalBounds().contains(localPosition)) {
-				isDraggingPistolet = true;
-			}
+		else if (event.mouseButton.button == sf::Mouse::Right && gunt.getPistolet().getSprite().getGlobalBounds().contains(localPosition)) {
+			isDraggingPistolet = true;
 		}
 	}
 	else if (event.type == sf::Event::MouseButtonReleased) {
@@ -92,7 +90,7 @@ void Game::render() {
 	mWindow.clear();
 	gunt.getBouclier().render(mWindow);
 	gunt.getPistolet().render(mWindow);
-	for (Balle& bullet : gunt.getPistolet().getActive()) {
+	for (const Balle& bullet : gunt.getPistolet().getActive()) {
 		bullet.render(mWindow);
 	}
 	mWindow.draw(mStatisticsText);
@@ -111,7 +109,7 @@ void Game::run() {
 		{
 			timeSinceLastUpdate -= TimePerFrame;
 			gunt.getPistolet().getReloadTime() += elapsedTime;
-			processEvents(elapsedTime);
+			processEvents();
 		}
 		updateStatistics(elapsedTime);
 		updateBullets(elapsedTime);

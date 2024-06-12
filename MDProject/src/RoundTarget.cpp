@@ -2,52 +2,28 @@
 
 using namespace std;
 
-RoundTarget::RoundTarget(float radius, sf::Color color, float x, float y, float a, float b)
+RoundTarget::RoundTarget(sf::Color color, double x, double y)
 {
-    mShape.setFillColor(color);
-    mShape.setRadius(radius);
-    mShape.setPosition(x, y);
-    mSpeed.x = a;
-    mSpeed.y = b;
-    mState = RoundTargetStatus::Alive;
+    mSprite.setColor(color);
+    mSprite.setPosition(float(x), float(y));
 }
 
-void RoundTarget::die() {
-    mState = RoundTargetStatus::Dying;
+void RoundTarget::render(sf::RenderWindow& window) const {
+    window.draw(mSprite);
 }
 
-void RoundTarget::drawCurrent(sf::RenderWindow& window) const {
-    window.draw(mShape);
-}
-
-sf::CircleShape RoundTarget::getShape() const {
-    return mShape;
-}
-
-RoundTargetStatus RoundTarget::getState() const {
-    return mState;
+sf::Sprite& RoundTarget::getSprite() {
+    return mSprite;
 }
 
 void RoundTarget::setColor(sf::Color c) {
-    mShape.setFillColor(c);
-}
-
-void RoundTarget::setSpeed(float new_x, float new_y) {
-    mSpeed.x = new_x;
-    mSpeed.y = new_y;
+    mSprite.setColor(c);
 }
 
 void RoundTarget::setPosition(const sf::Vector2f& mousePosition) {
-    mShape.setPosition(mousePosition);
+    mSprite.setPosition(mousePosition);
 }
 
 bool RoundTarget::isHitByMouse(const sf::Vector2f& mousePosition) const {
-    float minx = mShape.getPosition().x;
-    float miny = mShape.getPosition().y;
-    float maxx = minx + 2 * mShape.getRadius();
-    float maxy = miny + 2 * mShape.getRadius();
-    if (minx <= mousePosition.x && mousePosition.x <= maxx && miny <= mousePosition.y && mousePosition.y <= maxy) {
-        return true;
-    }
-    return false;
+    return mSprite.getGlobalBounds().contains(mousePosition);
 }

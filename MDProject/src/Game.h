@@ -7,16 +7,6 @@
 #include "Pistolet.h"
 
 class Game : private sf::NonCopyable {
-public:
-	explicit Game();
-	void run();
-	void processEvents(sf::Time elapsedTime);
-	void updateStatistics(sf::Time elapsedTime);
-	void updateBullets(sf::Time elapsedTime);
-	void render();
-	void draganddrop(sf::Event event);
-	Gunther getGunther();
-
 private:
 	Gunther gunt = Gunther(10);
 	const sf::Time TimePerFrame = sf::seconds(1.f / 60.f);
@@ -29,4 +19,14 @@ private:
 	sf::Time mBulletsUpdateTime = sf::Time::Zero;
 	std::size_t mStatisticsNumFrames{ 0 };
 	sf::Font mFont;
+
+public:
+	explicit Game();
+	Gunther getGunther() const;
+	void run();
+	void processEvents();
+	void updateStatistics(sf::Time elapsedTime);
+	void updateBullets(sf::Time elapsedTime);
+	void render();
+	void draganddrop(sf::Event event);
 };

@@ -5,8 +5,8 @@
 #include "Blessable.h"
 
 class Gunther : public Blessable {
-protected:
-	Pistolet pistolet = Pistolet(true, 500, 400, "resources/Pistolet.png");
+private:
+	Pistolet pistolet = Pistolet(500, 400, "resources/Pistolet.png");
 	BouclierMiroir bouclier = BouclierMiroir(200, 400, "resources/BouclierMiroir.png");
 
 public:

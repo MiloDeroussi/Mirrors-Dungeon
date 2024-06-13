@@ -7,11 +7,12 @@
 
 class Offensif : public Ennemi {
 private:
-	double attack;
 	std::vector<Balle> ballePool;
-	int mun_max = 99;
+	std::vector<Balle> activeBalleEnnemi;
+	int mun_max = 100;
 
 public:
-	explicit Offensif(double health, double x, double y, std::string pattern, double attack);
-	void shoot();
+	explicit Offensif(double health, double x, double y, const std::string& pattern, const std::string& text, double attack);
+	void shoot() override;
+	std::vector<Balle>& getActiveEnnemi();
 };

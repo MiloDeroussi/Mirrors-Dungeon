@@ -13,3 +13,15 @@ void BouclierMiroir::move(sf::Vector2f& mousePosition) {
 	mousePosition.y -= getSprite().getGlobalBounds().height/2;
 	this->setPosition(mousePosition);
 }
+
+void BouclierMiroir::reflect(std::vector<Offensif>& ennemis) {
+	for (Offensif& ennemi : ennemis) {
+		int i = 0;
+		for (Balle& bullet : ennemi.getActiveEnnemi()) {
+			if (getSprite().getGlobalBounds().contains(bullet.getSprite().getPosition())) {
+				ennemi.getActiveEnnemi().erase(ennemi.getActiveEnnemi().begin() + i);
+			}
+			i++;
+		}
+	}
+}

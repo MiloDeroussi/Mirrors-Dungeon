@@ -11,7 +11,7 @@ Game::Game() {
 	mStatisticsText.setCharacterSize(20);
 }
 
-Gunther Game::getGunther() const {
+Gunther& Game::getGunther() {
 	return gunt;
 }
 
@@ -22,7 +22,7 @@ void Game::processEvents() {
 			mWindow.close();
 		}
 		else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space) {
-			gunt.getPistolet().shoot();
+			gunt.getPistolet().shoot(activeEnnemi, activeOffEnnemi);
 		}
 		draganddrop(event);
 	}
@@ -31,10 +31,8 @@ void Game::processEvents() {
 void Game::draganddrop(sf::Event event) {
 	if (event.type == sf::Event::MouseButtonPressed) {
 		auto localPosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
-		if (event.mouseButton.button == sf::Mouse::Left) {
-			if (gunt.getBouclier().getSprite().getGlobalBounds().contains(localPosition)) {
-				isDraggingBouclier = true;
-			}
+		if (event.mouseButton.button == sf::Mouse::Left && gunt.getBouclier().getSprite().getGlobalBounds().contains(localPosition)) {
+			isDraggingBouclier = true;
 		}
 		else if (event.mouseButton.button == sf::Mouse::Right && gunt.getPistolet().getSprite().getGlobalBounds().contains(localPosition)) {
 			isDraggingPistolet = true;
@@ -52,6 +50,7 @@ void Game::draganddrop(sf::Event event) {
 		auto localPosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
 		if (isDraggingBouclier) {
 			gunt.getBouclier().move(localPosition);
+			gunt.getBouclier().reflect(activeOffEnnemi);
 		}
 		if (isDraggingPistolet) {
 			gunt.getPistolet().move(localPosition);
@@ -63,13 +62,13 @@ void Game::updateStatistics(sf::Time elapsedTime) {
 	mStatisticsUpdateTime += elapsedTime;
 	mStatisticsNumFrames += 1;
 
-	if (mStatisticsUpdateTime >= sf::seconds(1.0f))
+	if (mStatisticsUpdateTime >= sf::seconds(0.2f))
 	{
 		std::stringstream ss;
 		ss << "PV: " << gunt.getHealth() << "/" << gunt.getMaxHealth();
 		mStatisticsText.setString(ss.str());
 
-		mStatisticsUpdateTime -= sf::seconds(1.0f);
+		mStatisticsUpdateTime -= sf::seconds(0.2f);
 		mStatisticsNumFrames = 0;
 	}
 }
@@ -84,20 +83,60 @@ void Game::updateBullets(sf::Time elapsedTime) {
 		}
 		i += 1;
 	}
+	for (Offensif& ennemi : activeOffEnnemi) {
+		i = 0;
+		std::vector<Balle>& activeOff = ennemi.getActiveEnnemi();
+		for (Balle& bullet : activeOff) {
+			bullet.getTime() += elapsedTime;
+			if (bullet.getTime() > sf::seconds(2.0)) {
+				gunt.doDamage(bullet.getDamage());
+				if (!gunt.getAlive()) {
+					mWindow.close();
+				}
+				activeOff.erase(activeOff.begin() + i);
+			}
+			i += 1;
+		}
+	}
+}
+
+void Game::update(sf::Time elapsedTime) {
+	spawnBullets += elapsedTime;
+	if (spawnBullets >= sf::seconds(2.0)) {
+		spawnBullets = sf::Time::Zero;
+		for (Offensif& ennemi : activeOffEnnemi) {
+			ennemi.shoot();
+		}
+	}
+	if (activeEnnemi.empty() && activeOffEnnemi.empty()) {
+		mWindow.close();
+	}
 }
 
 void Game::render() {
 	mWindow.clear();
-	gunt.getBouclier().render(mWindow);
+	for (const Ennemi& ennemi : activeEnnemi) {
+		ennemi.render(mWindow);
+	}
+	for (Offensif& ennemi : activeOffEnnemi) {
+		ennemi.render(mWindow);
+		for (const Balle& bullet : ennemi.getActiveEnnemi()) {
+			bullet.render(mWindow);
+		}
+	}
 	gunt.getPistolet().render(mWindow);
 	for (const Balle& bullet : gunt.getPistolet().getActive()) {
 		bullet.render(mWindow);
 	}
+	gunt.getBouclier().render(mWindow);
 	mWindow.draw(mStatisticsText);
 	mWindow.display();
 }
 
 void Game::run() {
+	auto demon1 = Ennemi(1, 100, 100, "line", "resources/FlameDemon.png", 0);
+	auto demon2 = Offensif(2, 500, 100, "line", "resources/FlameArchDemon.png", 2);
+	activeEnnemi.push_back(demon1); activeOffEnnemi.push_back(demon2);
 	sf::Clock clock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 	mWindow.setVerticalSyncEnabled(true);
@@ -111,6 +150,7 @@ void Game::run() {
 			gunt.getPistolet().getReloadTime() += elapsedTime;
 			processEvents();
 		}
+		update(elapsedTime);
 		updateStatistics(elapsedTime);
 		updateBullets(elapsedTime);
 		render();

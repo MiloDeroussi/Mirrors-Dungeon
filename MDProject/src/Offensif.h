@@ -13,6 +13,7 @@ private:
 
 public:
 	explicit Offensif(double health, double x, double y, const std::string& pattern, const std::string& text, double attack);
+	~Offensif() override;
 	void shoot() override;
-	std::vector<Balle>& getActiveEnnemi();
+	std::vector<Balle>& getActiveBalleEnnemi();
 };

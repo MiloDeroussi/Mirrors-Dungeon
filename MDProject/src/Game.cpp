@@ -16,34 +16,51 @@ Gunther& Game::getGunther() {
 	return gunt;
 }
 
+std::vector<Offensif>& Game::getActiveOffEnnemi() {
+	return activeOffEnnemi;
+}
+
+std::vector<Ennemi>& Game::getActiveEnnemi() {
+	return activeEnnemi;
+}
+
+sf::RenderWindow& Game::getWindow() {
+	return mWindow;
+}
+
+void Game::handleMenu(sf::Event event) {
+	if (event.type == sf::Event::KeyPressed) {
+		if (event.key.code == sf::Keyboard::Up) {
+			menu.moveUp();
+		}
+		else if (event.key.code == sf::Keyboard::Down) {
+			menu.moveDown();
+		}
+		else if (event.key.code == sf::Keyboard::Space) {
+			switch (menu.getSelectedIndex()) {
+			case 0: // Commencer
+				isInMenu = false;
+				break;
+			case 1: // Options
+				isInMenu = false;
+				isInOptions = true;
+				break;
+			case 2: // Quitter
+				mWindow.close();
+				break;
+			default:
+				mWindow.close();
+				break;
+			}
+		}
+	}
+}
+
 void Game::processEvents() {
 	sf::Event event;
 	while (mWindow.pollEvent(event)) {
 		if (isInMenu) {
-			if (event.type == sf::Event::KeyReleased) {
-				switch (event.key.code) {
-				case sf::Keyboard::Up:
-					menu.moveUp();
-					break;
-				case sf::Keyboard::Down:
-					menu.moveDown();
-					break;
-				case sf::Keyboard::Space:
-					switch (menu.getSelectedIndex()) {
-					case 0: // Commencer
-						isInMenu = false;
-						break;
-					case 1: // Options
-						isInMenu = false;
-						isInOptions = true;
-						break;
-					case 2: // Quitter
-						mWindow.close();
-						break;
-					}
-					break;
-				}
-			}
+			handleMenu(event);
 		}
 		else if (isInOptions) {
 			options.handleEvent(event, isInOptions, isInMenu);
@@ -82,7 +99,7 @@ void Game::draganddrop(sf::Event event) {
 		auto localPosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
 		if (isDraggingBouclier) {
 			gunt.getBouclier().move(localPosition);
-			gunt.getBouclier().reflect(activeOffEnnemi);
+			gunt.getBouclier().reflect(getActiveOffEnnemi());
 		}
 		if (isDraggingPistolet) {
 			gunt.getPistolet().move(localPosition);
@@ -100,14 +117,14 @@ void Game::updateStatistics(sf::Time elapsedTime) {
 		ss << "PV: " << gunt.getHealth() << "/" << gunt.getMaxHealth();
 		mStatisticsText.setString(ss.str());
 
-		mStatisticsUpdateTime -= sf::seconds(0.2f);
+		mStatisticsUpdateTime = sf::Time::Zero;
 		mStatisticsNumFrames = 0;
 	}
 }
 
 void Game::updateBullets(sf::Time elapsedTime) {
 	int i = 0;
-	std::vector<Balle>& active = gunt.getPistolet().getActive();
+	std::vector<Balle>& active = gunt.getPistolet().getActiveBalle();
 	for (Balle& bullet : active) {
 		bullet.getTime() += elapsedTime;
 		if (bullet.getTime() > sf::seconds(2.0)) {
@@ -115,18 +132,17 @@ void Game::updateBullets(sf::Time elapsedTime) {
 		}
 		i += 1;
 	}
-	for (Offensif& ennemi : activeOffEnnemi) {
+	for (Offensif& ennemi : getActiveOffEnnemi()) {
 		i = 0;
-		std::vector<Balle>& activeOff = ennemi.getActiveEnnemi();
+		std::vector<Balle>& activeOff = ennemi.getActiveBalleEnnemi();
 		for (Balle& bullet : activeOff) {
 			bullet.getTime() += elapsedTime;
 			if (bullet.getTime() > sf::seconds(2.0)) {
 				gunt.doDamage(bullet.getDamage());
-				if (!gunt.getAlive()) {
-					std::cout << "Game Over : Gunther est mort !" << endl;
-					mWindow.close();
-				}
 				activeOff.erase(activeOff.begin() + i);
+			}
+			if (!gunt.getAlive()) {
+				mWindow.close();
 			}
 			i += 1;
 		}
@@ -142,6 +158,8 @@ void Game::update(sf::Time elapsedTime) {
 				ennemi.shoot();
 			}
 		}
+		updateStatistics(elapsedTime);
+		updateBullets(elapsedTime);
 	}
 	if (activeEnnemi.empty() && activeOffEnnemi.empty()) {
 		std::cout << "Bravo tu remportes la victoire !" << endl;
@@ -158,17 +176,17 @@ void Game::render() {
 		options.draw(mWindow);
 	}
 	else {
-		for (const Ennemi& ennemi : activeEnnemi) {
+		for (const Ennemi& ennemi : getActiveEnnemi()) {
 			ennemi.render(mWindow);
 		}
-		for (Offensif& ennemi : activeOffEnnemi) {
+		for (Offensif& ennemi : getActiveOffEnnemi()) {
 			ennemi.render(mWindow);
-			for (const Balle& bullet : ennemi.getActiveEnnemi()) {
+			for (const Balle& bullet : ennemi.getActiveBalleEnnemi()) {
 				bullet.render(mWindow);
 			}
 		}
 		gunt.getPistolet().render(mWindow);
-		for (const Balle& bullet : gunt.getPistolet().getActive()) {
+		for (const Balle& bullet : gunt.getPistolet().getActiveBalle()) {
 			bullet.render(mWindow);
 		}
 		gunt.getBouclier().render(mWindow);
@@ -180,7 +198,7 @@ void Game::render() {
 void Game::run() {
 	auto demon1 = Ennemi(1, 100, 100, "line", "resources/FlameDemon.png", 0);
 	auto demon2 = Offensif(2, 500, 100, "line", "resources/FlameArchDemon.png", 2);
-	activeEnnemi.push_back(demon1); activeOffEnnemi.push_back(demon2);
+	getActiveEnnemi().push_back(demon1); getActiveOffEnnemi().push_back(demon2);
 	sf::Clock clock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 	mWindow.setVerticalSyncEnabled(true);
@@ -195,8 +213,6 @@ void Game::run() {
 			processEvents();
 		}
 		update(elapsedTime);
-		updateStatistics(elapsedTime);
-		updateBullets(elapsedTime);
 		render();
 
 	}

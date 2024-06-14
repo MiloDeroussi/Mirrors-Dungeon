@@ -19,4 +19,6 @@ double Balle::getDamage() const {
 	return damage;
 }
 
+Balle::~Balle() = default;
+
 void Balle::move(sf::Vector2f& mousePosition) {/*Non nécessaire car les balles ne bougent pas*/}

@@ -14,10 +14,12 @@ private:
 
 public:
 	explicit Ennemi(double health, double x, double y, const std::string& pattern, const std::string& text, double attack);
+	virtual ~Ennemi();
 	sf::Sprite& getEnnemiSprite();
-	void render(sf::RenderWindow& window) const;
-	void move(std::string pattern);
+	std::string getPattern() const;
 	double getAttack() const;
 	bool isOffensive() const;
 	virtual void shoot();
+	void render(sf::RenderWindow& window) const;
+	void move() const;
 };

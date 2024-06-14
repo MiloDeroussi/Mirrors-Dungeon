@@ -14,9 +14,13 @@ void Ennemi::render(sf::RenderWindow& window) const {
 	window.draw(EnnemiSprite);
 }
 
-void Ennemi::move(string pattern) {
-
+std::string Ennemi::getPattern() const {
+	return MovePattern;
 }
+
+void Ennemi::move() const {/*En cours*/}
+
+Ennemi::~Ennemi() = default;
 
 sf::Sprite& Ennemi::getEnnemiSprite() {
 	return EnnemiSprite;

@@ -6,7 +6,7 @@ Menu::Menu(float width, float height) {
     }
     
     titre.setFont(font); titre.setString("Mirrors Dungeon"); titre.setPosition(sf::Vector2f(width / 3, 50)); titre.setScale(float(1.6), float(1.6)); titre.setFillColor(sf::Color::Green);
-    std::vector<std::string> items = { "Commencer", "Options", "Quitter" };
+    std::vector<std::string> items = { "Commencer", "Règles", "Quitter" };
     for (size_t i = 0; i < items.size(); ++i) {
         sf::Text text;
         text.setFont(font);

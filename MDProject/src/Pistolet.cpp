@@ -14,6 +14,8 @@ Pistolet::Pistolet(double x, double y, const std::string& text) : RoundTarget(sf
 	getSprite().setScale(float(0.35), float(0.35));
 }
 
+Pistolet::~Pistolet() = default;
+
 void Pistolet::shoot(std::vector<Ennemi>& activeEnnemi, std::vector<Offensif>& activeOffEnnemi) {
 	if (reload < sf::seconds(2.0)) {
 		std::cout << "Rechargement !" << endl;
@@ -35,7 +37,7 @@ void Pistolet::shoot(std::vector<Ennemi>& activeEnnemi, std::vector<Offensif>& a
 	}
 }
 
-std::vector<Balle>& Pistolet::getActive() {
+std::vector<Balle>& Pistolet::getActiveBalle() {
 	return activeBalle;
 }
 
@@ -55,9 +57,7 @@ void Pistolet::dealDamage(std::vector<Ennemi>& activeEnnemi, std::vector<Offensi
 		for (Ennemi& ennemi : activeEnnemi) {
 			if (ennemi.getEnnemiSprite().getGlobalBounds().contains(bullet.getSprite().getPosition())) {
 				ennemi.doDamage(bullet.getDamage());
-				if (!ennemi.getAlive()) {
-					activeEnnemi.erase(activeEnnemi.begin() + i);
-				}
+				killEnnemi(ennemi, activeEnnemi, i);
 			}
 			i++;
 		}
@@ -65,11 +65,21 @@ void Pistolet::dealDamage(std::vector<Ennemi>& activeEnnemi, std::vector<Offensi
 		for (Offensif& ennemi : activeOffEnnemi) {
 			if (ennemi.getEnnemiSprite().getGlobalBounds().contains(bullet.getSprite().getPosition())) {
 				ennemi.doDamage(bullet.getDamage());
-				if (!ennemi.getAlive()) {
-					activeOffEnnemi.erase(activeOffEnnemi.begin() + i);
-				}
+				killOffEnnemi(ennemi, activeOffEnnemi, i);
 			}
 			i++;
 		}
+	}
+}
+
+void Pistolet::killEnnemi(const Ennemi& ennemi, std::vector<Ennemi>& activeEnnemi, int i) const {
+	if (!ennemi.getAlive()) {
+		activeEnnemi.erase(activeEnnemi.begin() + i);
+	}
+}
+
+void Pistolet::killOffEnnemi(const Ennemi& ennemi, std::vector<Offensif>& activeOffEnnemi, int i) const {
+	if (!ennemi.getAlive()) {
+		activeOffEnnemi.erase(activeOffEnnemi.begin() + i);
 	}
 }

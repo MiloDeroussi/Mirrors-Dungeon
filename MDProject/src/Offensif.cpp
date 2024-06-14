@@ -14,6 +14,8 @@ Offensif::Offensif(double health, double x, double y, const std::string& pattern
 	this->ballePool = munitions;
 }
 
+Offensif::~Offensif() = default;
+
 void Offensif::shoot() {
 	if (!ballePool.empty()) {
 		Balle& cur = ballePool.front();
@@ -38,6 +40,6 @@ void Offensif::shoot() {
 	}
 }
 
-std::vector<Balle>& Offensif::getActiveEnnemi() {
+std::vector<Balle>& Offensif::getActiveBalleEnnemi() {
 	return activeBalleEnnemi;
 }

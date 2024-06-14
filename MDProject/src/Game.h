@@ -7,6 +7,8 @@
 #include "Pistolet.h"
 #include "Ennemi.h"
 #include "Offensif.h"
+#include "Menu.h"
+#include "MenuOptions.h"
 
 class Game : private sf::NonCopyable {
 private:
@@ -16,6 +18,8 @@ private:
 	const sf::Time TimePerFrame = sf::seconds(1.f / 60.f);
 	bool isDraggingBouclier = false;
 	bool isDraggingPistolet = false;
+	bool isInMenu = true;
+	bool isInOptions = false;
 
 	sf::RenderWindow mWindow{ sf::VideoMode{800, 600}, "Mirrors Dungeon", sf::Style::Close };
 	sf::Text mStatisticsText;
@@ -24,6 +28,8 @@ private:
 	sf::Time spawnBullets = sf::Time::Zero;
 	std::size_t mStatisticsNumFrames{ 0 };
 	sf::Font mFont;
+	Menu menu{800, 600};
+	MenuOptions options{ 800, 600 };
 
 public:
 	explicit Game();

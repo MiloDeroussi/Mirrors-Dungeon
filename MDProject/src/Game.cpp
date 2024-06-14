@@ -1,6 +1,7 @@
 #include <Game.h>
 #include <Gunther.h>
 #include <sstream>
+#include <iostream>
 
 using namespace std;
 
@@ -18,13 +19,44 @@ Gunther& Game::getGunther() {
 void Game::processEvents() {
 	sf::Event event;
 	while (mWindow.pollEvent(event)) {
-		if (event.type == sf::Event::Closed) {
-			mWindow.close();
+		if (isInMenu) {
+			if (event.type == sf::Event::KeyReleased) {
+				switch (event.key.code) {
+				case sf::Keyboard::Up:
+					menu.moveUp();
+					break;
+				case sf::Keyboard::Down:
+					menu.moveDown();
+					break;
+				case sf::Keyboard::Space:
+					switch (menu.getSelectedIndex()) {
+					case 0: // Commencer
+						isInMenu = false;
+						break;
+					case 1: // Options
+						isInMenu = false;
+						isInOptions = true;
+						break;
+					case 2: // Quitter
+						mWindow.close();
+						break;
+					}
+					break;
+				}
+			}
 		}
-		else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space) {
-			gunt.getPistolet().shoot(activeEnnemi, activeOffEnnemi);
+		else if (isInOptions) {
+			options.handleEvent(event, isInOptions, isInMenu);
 		}
-		draganddrop(event);
+		else {
+			if (event.type == sf::Event::Closed) {
+				mWindow.close();
+			}
+			else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space) {
+				gunt.getPistolet().shoot(activeEnnemi, activeOffEnnemi);
+			}
+			draganddrop(event);
+		}
 	}
 }
 
@@ -91,6 +123,7 @@ void Game::updateBullets(sf::Time elapsedTime) {
 			if (bullet.getTime() > sf::seconds(2.0)) {
 				gunt.doDamage(bullet.getDamage());
 				if (!gunt.getAlive()) {
+					std::cout << "Game Over : Gunther est mort !" << endl;
 					mWindow.close();
 				}
 				activeOff.erase(activeOff.begin() + i);
@@ -101,35 +134,46 @@ void Game::updateBullets(sf::Time elapsedTime) {
 }
 
 void Game::update(sf::Time elapsedTime) {
-	spawnBullets += elapsedTime;
-	if (spawnBullets >= sf::seconds(2.0)) {
-		spawnBullets = sf::Time::Zero;
-		for (Offensif& ennemi : activeOffEnnemi) {
-			ennemi.shoot();
+	if (!isInMenu && !isInOptions) {
+		spawnBullets += elapsedTime;
+		if (spawnBullets >= sf::seconds(2.0)) {
+			spawnBullets = sf::Time::Zero;
+			for (Offensif& ennemi : activeOffEnnemi) {
+				ennemi.shoot();
+			}
 		}
 	}
 	if (activeEnnemi.empty() && activeOffEnnemi.empty()) {
+		std::cout << "Bravo tu remportes la victoire !" << endl;
 		mWindow.close();
 	}
 }
 
 void Game::render() {
 	mWindow.clear();
-	for (const Ennemi& ennemi : activeEnnemi) {
-		ennemi.render(mWindow);
+	if (isInMenu) {
+		menu.draw(mWindow);
 	}
-	for (Offensif& ennemi : activeOffEnnemi) {
-		ennemi.render(mWindow);
-		for (const Balle& bullet : ennemi.getActiveEnnemi()) {
+	else if (isInOptions) {
+		options.draw(mWindow);
+	}
+	else {
+		for (const Ennemi& ennemi : activeEnnemi) {
+			ennemi.render(mWindow);
+		}
+		for (Offensif& ennemi : activeOffEnnemi) {
+			ennemi.render(mWindow);
+			for (const Balle& bullet : ennemi.getActiveEnnemi()) {
+				bullet.render(mWindow);
+			}
+		}
+		gunt.getPistolet().render(mWindow);
+		for (const Balle& bullet : gunt.getPistolet().getActive()) {
 			bullet.render(mWindow);
 		}
+		gunt.getBouclier().render(mWindow);
+		mWindow.draw(mStatisticsText);
 	}
-	gunt.getPistolet().render(mWindow);
-	for (const Balle& bullet : gunt.getPistolet().getActive()) {
-		bullet.render(mWindow);
-	}
-	gunt.getBouclier().render(mWindow);
-	mWindow.draw(mStatisticsText);
 	mWindow.display();
 }
 

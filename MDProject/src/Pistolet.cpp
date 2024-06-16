@@ -14,8 +14,10 @@ Pistolet::Pistolet(double x, double y, const std::string& text) : RoundTarget(sf
 	getSprite().setScale(float(0.35), float(0.35));
 }
 
-void Pistolet::shoot() {
-	if (reload < sf::seconds(1.0)) {
+Pistolet::~Pistolet() = default;
+
+void Pistolet::shoot(std::vector<Ennemi>& activeEnnemi, std::vector<Offensif>& activeOffEnnemi) {
+	if (reload < sf::seconds(2.0)) {
 		std::cout << "Rechargement !" << endl;
 	}
 	else if (!ballePool.empty()) {
@@ -27,6 +29,7 @@ void Pistolet::shoot() {
 		cur.getSprite().setColor(sf::Color::Blue);
 		activeBalle.push_back(cur);
 		ballePool.erase(ballePool.begin());
+		dealDamage(activeEnnemi, activeOffEnnemi);
 		std::cout << "Balles restantes : " << ballePool.size() << endl;
 	}
 	else {
@@ -34,7 +37,7 @@ void Pistolet::shoot() {
 	}
 }
 
-std::vector<Balle>& Pistolet::getActive() {
+std::vector<Balle>& Pistolet::getActiveBalle() {
 	return activeBalle;
 }
 
@@ -46,4 +49,37 @@ void Pistolet::move(sf::Vector2f& mousePosition) {
 
 sf::Time& Pistolet::getReloadTime() {
 	return reload;
+}
+
+void Pistolet::dealDamage(std::vector<Ennemi>& activeEnnemi, std::vector<Offensif>& activeOffEnnemi) {
+	for (Balle& bullet : activeBalle) {
+		int i = 0;
+		for (Ennemi& ennemi : activeEnnemi) {
+			if (ennemi.getEnnemiSprite().getGlobalBounds().contains(bullet.getSprite().getPosition())) {
+				ennemi.doDamage(bullet.getDamage());
+				killEnnemi(ennemi, activeEnnemi, i);
+			}
+			i++;
+		}
+		i = 0;
+		for (Offensif& ennemi : activeOffEnnemi) {
+			if (ennemi.getEnnemiSprite().getGlobalBounds().contains(bullet.getSprite().getPosition())) {
+				ennemi.doDamage(bullet.getDamage());
+				killOffEnnemi(ennemi, activeOffEnnemi, i);
+			}
+			i++;
+		}
+	}
+}
+
+void Pistolet::killEnnemi(const Ennemi& ennemi, std::vector<Ennemi>& activeEnnemi, int i) const {
+	if (!ennemi.getAlive()) {
+		activeEnnemi.erase(activeEnnemi.begin() + i);
+	}
+}
+
+void Pistolet::killOffEnnemi(const Ennemi& ennemi, std::vector<Offensif>& activeOffEnnemi, int i) const {
+	if (!ennemi.getAlive()) {
+		activeOffEnnemi.erase(activeOffEnnemi.begin() + i);
+	}
 }

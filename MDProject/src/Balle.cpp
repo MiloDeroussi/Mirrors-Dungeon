@@ -7,8 +7,6 @@ Balle::Balle(bool IsAlly, double x, double y, double damage, const string& text)
 	getSprite().setTexture(TextureBalle);
 }
 
-void Balle::doDamage() const {/*En cours*/}
-
 sf::Texture& Balle::getTexture() {
 	return TextureBalle;
 }
@@ -16,5 +14,11 @@ sf::Texture& Balle::getTexture() {
 sf::Time& Balle::getTime() {
 	return timetolive;
 }
+
+double Balle::getDamage() const {
+	return damage;
+}
+
+Balle::~Balle() = default;
 
 void Balle::move(sf::Vector2f& mousePosition) {/*Non nécessaire car les balles ne bougent pas*/}

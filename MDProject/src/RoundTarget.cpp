@@ -8,6 +8,8 @@ RoundTarget::RoundTarget(sf::Color color, double x, double y)
     mSprite.setPosition(float(x), float(y));
 }
 
+RoundTarget::~RoundTarget() = default;
+
 void RoundTarget::render(sf::RenderWindow& window) const {
     window.draw(mSprite);
 }

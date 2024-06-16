@@ -6,10 +6,12 @@ private:
 	double health;
 	double max_health;
 	bool alive = true;
+
 public:
 	explicit Blessable(double max_h);
-	void getDamage(double damage);
+	void doDamage(double damage);
 	void death();
-	double getHealth();
-	double getMaxHealth();
+	double getHealth() const;
+	double getMaxHealth() const;
+	bool getAlive() const;
 };

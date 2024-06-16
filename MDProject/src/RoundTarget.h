@@ -7,6 +7,7 @@ private:
 
 public:
     RoundTarget(sf::Color color, double x, double y);
+    virtual ~RoundTarget();
     sf::Sprite& getSprite();
     void render(sf::RenderWindow& window) const;
     void setColor(sf::Color c);

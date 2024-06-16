@@ -2,17 +2,22 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
+#include <MenuState.h>
 
-class Menu {
+class Menu : public MenuState {
 private:
     int selectedIndex;
     sf::Font font;
-    std::vector<sf::Text> menuItems;
     sf::Text titre;
+    sf::Text playButton;
+    sf::Text optionsButton;
+    sf::Text exitButton;
+    std::vector<sf::Text> menuItems;
 
 public:
-    Menu(float width, float height);
-    void draw(sf::RenderWindow& window) const;
+    explicit Menu(MenuStateManager& manager);
+    void render(sf::RenderWindow& window) override;
+    void handleEvent(sf::Event event, sf::RenderWindow& window) override;
     void moveUp();
     void moveDown();
     int getSelectedIndex() const;

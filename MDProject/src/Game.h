@@ -9,20 +9,18 @@
 #include "Offensif.h"
 #include "Menu.h"
 #include "MenuOptions.h"
+#include "MenuStateManager.h"
 
 class Game : private sf::NonCopyable {
 private:
-	Gunther gunt = Gunther(10);
+	Gunther gunt = Gunther(5);
 	std::vector<Offensif> activeOffEnnemi;
 	std::vector<Ennemi> activeEnnemi;
 	bool isDraggingBouclier = false;
 	bool isDraggingPistolet = false;
-	bool isInMenu = true;
-	bool isInOptions = false;
 	sf::Text mStatisticsText;
 	sf::Font mFont;
-	Menu menu{800, 600};
-	MenuOptions options{ 800, 600 };
+	MenuStateManager menuStateMan;
 	sf::RenderWindow mWindow{ sf::VideoMode{800, 600}, "Mirrors Dungeon", sf::Style::Close };
 	sf::Time mStatisticsUpdateTime = sf::Time::Zero;
 	sf::Time mBulletsUpdateTime = sf::Time::Zero;

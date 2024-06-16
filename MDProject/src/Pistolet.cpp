@@ -30,15 +30,18 @@ void Pistolet::shoot(std::vector<Ennemi>& activeEnnemi, std::vector<Offensif>& a
 		activeBalle.push_back(cur);
 		ballePool.erase(ballePool.begin());
 		dealDamage(activeEnnemi, activeOffEnnemi);
-		std::cout << "Balles restantes : " << ballePool.size() << endl;
 	}
 	else {
-		std::cout << "Balles restantes : 0" << endl;
+		std::cout << "Plus de balles !" << endl;
 	}
 }
 
 std::vector<Balle>& Pistolet::getActiveBalle() {
 	return activeBalle;
+}
+
+std::vector<Balle>& Pistolet::getBallePool() {
+	return ballePool;
 }
 
 void Pistolet::move(sf::Vector2f& mousePosition) {

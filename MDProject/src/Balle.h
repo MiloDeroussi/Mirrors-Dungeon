@@ -12,7 +12,7 @@ private:
 
 public:
 	explicit Balle(bool IsAlly, double x, double y, double damage, const std::string& text);
-	virtual ~Balle();
+	~Balle() override;
 	sf::Texture& getTexture();
 	sf::Time& getTime();
 	double getDamage() const;

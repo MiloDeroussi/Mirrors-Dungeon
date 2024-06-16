@@ -2,23 +2,21 @@
 
 #ifndef __SALLE_H__
 #define __SALLE_H__
-#include "Donjon.h"
-
+#include <string>
 
 class Porte;
 
 class Salle {
 private:
-	Porte *porteR;
-	Porte *porteL;
 	int nsalle;
-	int id;
+	std::string id;
 public:
-	explicit Salle(int id, Porte *porteR, Porte *porteL, int nsalle);
-	explicit Salle();
+	enum class Type { ESalle, MiniBoss, MediumBoss, Boss, HSalle, USalle };
+	explicit Salle(std::string id, int nsalle);
+
 	void Draw();
 	void DrawDoors();
-	void GenerateNextRooms(Salle salleR, Salle salleL);
+	std::string getid();
 };
 
 #endif // !__SALLE_H__

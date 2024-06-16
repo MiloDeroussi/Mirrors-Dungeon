@@ -2,425 +2,187 @@
 <pool>
     <esalle>
         <difficulty_rank_1> 
-
-            <salle>
-                <id> es1 </id>
-                <nb_enemies> 1 </nb_enemies>
-                <ennemi> 
-                    <nom> demon </nom>
-                    <xpos> 1 </xpos>
-                    <ypos> 1 </ypos>
-                    <pattern> h_line </pattern>
+            <salle id="es1" nb_enemies="1" >
+                <ennemi id ="demon" xpos="1" ypos="1" pattern="h_line"> 
                 </ennemi>
             </salle>
 
-            <salle>
-                <id> es2 </id>
-                <nb_enemies> 3 </nb_enemies>
-                <ennemi> 
-                    <nom> demon_mineur </nom>
-                    <xpos> 1 </xpos>
-                    <ypos> 1 </ypos>
-                    <pattern> v_line </pattern>
-                </ennemi>
-
-                <ennemi> 
-                    <nom> demon_mineur </nom>
-                    <xpos> 2 </xpos>
-                    <ypos> 2 </ypos>
-                    <pattern> v_line </pattern>
-                </ennemi>
-
-                <ennemi> 
-
-                    <nom> demon_mineur </nom>
-                    <xpos> 3 </xpos>
-                    <ypos> 3 </ypos>
-                    <pattern> v_line </pattern>
-                </ennemi>
+            <salle id="es2" nb_enemies="3">
+				<ennemi id ="demon_mineur" xpos="1" ypos="1" pattern="v_line">
+				</ennemi>
+				<ennemi id ="demon_mineur" xpos="2" ypos="2" pattern="v_line">
+				</ennemi>
+				<ennemi id ="demon_mineur" xpos="3" ypos="3" pattern="v_line">
+				</ennemi>
             </salle>
 
-            <salle>
-                <id> es3 </id>
-                <nb_enemies> 1 </nb_enemies>
-                <ennemi> 
-                    <nom> demon </nom>
-                    <xpos> 1 </xpos>
-                    <ypos> 1 </ypos>
-                    <pattern> v_line </pattern>
-                </ennemi>
+            <salle id="es3" nb_enemies="1">
+
+				<ennemi id ="demon" xpos="1" ypos="1" pattern="v_line">
+				</ennemi>
             </salle>
 
-            <salle>
-                <id> es4 </id>
-                <nb_enemies> 2 </nb_enemies>
-                <ennemi> 
-                    <nom> demon_shield </nom>
-                    <xpos> 1 </xpos>
-                    <ypos> 1 </ypos>
-                    <pattern> h_line </pattern>
-                </ennemi>
+			<salle id="es4" nb_enemies="2">
 
-                <ennemi> 
-                    <nom> demon_shield </nom>
-                    <xpos> 2 </xpos>
-                    <ypos> 2 </ypos>
-                    <pattern> h_line </pattern>
-                </ennemi>
+				<ennemi id ="demon_shield" xpos="1" ypos="1" pattern="h_line">
+				</ennemi>
+				
+				<ennemi id ="demon_shield" xpos="2" ypos="2" pattern="h_line">
+				</ennemi>
+               
             </salle>
 
-            <salle>
-                <id> es5 </id>
-                <nb_enemies> 2 </nb_enemies>
+			<salle id="es5" nb_enemies="2">
 
-                <ennemi> 
-                    <nom> demon </nom>
-                    <xpos> 1 </xpos>
-                    <ypos> 1 </ypos>
-                    <pattern> h_line </pattern>
-                </ennemi>
+				<ennemi id ="demon" xpos="1" ypos="1" pattern="h_line">
+				</ennemi>
 
-                <ennemi> 
-                    <nom> demon_shield </nom>
-                    <xpos> 2 </xpos>
-                    <ypos> 2 </ypos>
-                    <pattern> h_line </pattern>
-                </ennemi>
+				<ennemi id ="demon_shield" xpos="2" ypos="2" pattern="h_line">
+				</ennemi>
+				
             </salle>
 
-            <salle>
-                <id> es6 </id>
-                <nb_enemies> 3 </nb_enemies>
-                <ennemi> 
-                    <nom> demon_mineur </nom>
-                    <xpos> 1 </xpos>
-                    <ypos> 1 </ypos>
-                    <pattern> v_line </pattern>
-                </ennemi>
-                <ennemi> 
-                    <nom> demon_mineur </nom>
-                    <xpos> 3 </xpos>
-                    <ypos> 3 </ypos>
-                    <pattern> v_line </pattern>
-                </ennemi>
-                <ennemi> 
-                    <nom> demon_shield </nom>
-                    <xpos> 2 </xpos>
-                    <ypos> 2 </ypos>
-                    <pattern> v_line </pattern>
-                </ennemi>
+			<salle id="es6" nb_enemies="3">
+				<ennemi id ="demon_mineur" xpos="1" ypos="1" pattern="h_line">
+				</ennemi>
+				<ennemi id ="demon_mineur" xpos="2" ypos="2" pattern="h_line">
+				</ennemi>
+				<ennemi id ="demon_mineur" xpos="3" ypos="3" pattern="h_line">
+				</ennemi>
             </salle>
 
-            <salle>
-                <id> es7 </id>
-                <nb_enemies> 1 </nb_enemies>
-                <ennemi> 
-                    <nom> demon </nom>
-                    <xpos> 2 </xpos>
-                    <ypos> 2 </ypos>
-                    <pattern> circle </pattern>
-                </ennemi>
+			<salle id="es7" nb_enemies="1">
+				<ennemi id ="demon" xpos="1" ypos="1" pattern="circle">
+				</ennemi>
             </salle>
 
-            <salle>
-                <id> es8 </id>
-                <nb_enemies> 2 </nb_enemies>
-                <ennemi> 
-                    <nom> demon </nom>
-                    <xpos> 1 </xpos>
-                    <ypos> 1 </ypos>
-                    <pattern> v_line </pattern>
-                </ennemi>
-                <ennemi> 
-                    <nom> demon </nom>
-                    <xpos> 2 </xpos>
-                    <ypos> 2 </ypos>
-                    <pattern> v_line </pattern>
-                </ennemi>
+			<salle id="es8" nb_enemies="2">
+				<ennemi id ="demon" xpos="1" ypos="1" pattern="v_line">
+				</ennemi>
+				<ennemi id ="demon" xpos="2" ypos="2" pattern="v_line">
+				</ennemi>
             </salle>
         </difficulty_rank_1>
 
         <mini_boss>
-            <salle>
-                <id> mb1 </id>
-                <nb_enemies> 3 </nb_enemies>
-                <ennemi> 
-                    <nom> demon_majeur </nom>
-                    <xpos> 1 </xpos>
-                    <ypos> 1 </ypos>
-                    <pattern> circle </pattern>
-                </ennemi>
-                <ennemi> 
-                    <nom> demon_miroir </nom>
-                    <xpos> 2 </xpos>
-                    <ypos> 2 </ypos>
-                    <pattern> h_line </pattern>
-                </ennemi>
-                <ennemi> 
-                    <nom> demon_miroir </nom>
-                    <xpos> 3 </xpos>
-                    <ypos> 3 </ypos>
-                    <pattern> h_line </pattern>
-                </ennemi>
+            <salle id="mb1" nb_enemies="3">
+				<ennemi id ="demon_majeur" xpos="1" ypos="1" pattern="circle">
+				</ennemi>
+				<ennemi id ="demon_miroir" xpos="2" ypos="2" pattern="h_line">
+				</ennemi>
+				<ennemi id ="demon_miroir" xpos="3" ypos="3" pattern="h_line">
+				</ennemi>
             </salle>
 
-            <salle>
-                <id> mb2 </id>
-                <nb_enemies> 3 </nb_enemies>
-                <ennemi> 
-                    <nom> demon_majeur </nom>
-                    <xpos> 1 </xpos>
-                    <ypos> 1 </ypos>
-                    <pattern> circle </pattern>
-                </ennemi>
-                <ennemi> 
-                    <nom> demon </nom>
-                    <xpos> 2 </xpos>
-                    <ypos> 2 </ypos>
-                    <pattern> v_line </pattern>
-                </ennemi>
-                <ennemi> 
-                    <nom> demon </nom>
-                    <xpos> 3 </xpos>
-                    <ypos> 3 </ypos>
-                    <pattern> v_line </pattern>
-                </ennemi>
+			<salle id="mb2" nb_enemies="3">
+				<ennemi id ="demon_majeur" xpos="1" ypos="1" pattern="circle">
+				</ennemi>
+				<ennemi id ="demon" xpos="2" ypos="2" pattern="v_line">
+				</ennemi>
+				<ennemi id ="demon" xpos="3" ypos="3" pattern="v_line">
+				</ennemi>
             </salle>
         </mini_boss>
 
-        <difficulty_rank_2> 
+        <difficulty_rank_2>
 
-            <salle>
-                <id> es9 </id>
-                <nb_enemies> 1 </nb_enemies>
-                <ennemi> 
-                    <nom> beholder </nom>
-                    <xpos> 1 </xpos>
-                    <ypos> 1 </ypos>
-                    <pattern> circle </pattern>
-                </ennemi>
+			<salle id="es9" nb_enemies="1">
+				<ennemi id ="beholder" xpos="1" ypos="1" pattern="circle">
+				</ennemi>
             </salle>
 
-            <salle>
-                <id> es10 </id>
-                <nb_enemies> 1 </nb_enemies>
-                <ennemi> 
-                    <nom> demon </nom>
-                    <xpos> 1 </xpos>
-                    <ypos> 1 </ypos>
-                    <pattern> v_line </pattern>
-                </ennemi>
-
-                <ennemi> 
-                    <nom> demon </nom>
-                    <xpos> 2 </xpos>
-                    <ypos> 2 </ypos>
-                    <pattern> v_line </pattern>
-                </ennemi>
+			<salle id="es10" nb_enemies="2">
+				<ennemi id ="demon" xpos="2" ypos="2" pattern="v_line">
+				</ennemi>
+				<ennemi id ="demon" xpos="3" ypos="3" pattern="v_line">
+				</ennemi>
             </salle>
 
-            <salle>
-                <id> es11 </id>
-                <nb_enemies> 2 </nb_enemies>
-                <ennemi> 
-                    <nom> demon_miroir </nom>
-                    <xpos> 1 </xpos>
-                    <ypos> 1 </ypos>
-                    <pattern> h_line </pattern>
-                </ennemi>
-                <ennemi> 
-                    <nom> demon_miroir </nom>
-                    <xpos> 2 </xpos>
-                    <ypos> 2 </ypos>
-                    <pattern> h_line </pattern>
-                </ennemi>
+			<salle id="es11" nb_enemies="2">
+				<ennemi id ="demon_miroir" xpos="1" ypos="1" pattern="h_line">
+				</ennemi>
+				<ennemi id ="demon_miroir" xpos="2" ypos="2" pattern="h_line">
+				</ennemi>
             </salle>
 
-            <salle>
-                <id> es12 </id>
-                <nb_enemies> 2 </nb_enemies>
-                <ennemi> 
-                    <nom> demon_shield </nom>
-                    <xpos> 1 </xpos>
-                    <ypos> 1 </ypos>
-                    <pattern> circle </pattern>
-                </ennemi>
-
-                <ennemi> 
-                    <nom> beholder </nom>
-                    <xpos> 2 </xpos>
-                    <ypos> 2 </ypos>
-                    <pattern> v_line </pattern>
-                </ennemi>
+			<salle id="es12" nb_enemies="2">
+				<ennemi id ="demon_miroir" xpos="2" ypos="2" pattern="v_line">
+				</ennemi>
+				<ennemi id ="beholder" xpos="1" ypos="1" pattern="circle">
+				</ennemi>
             </salle>
 
-            <salle>
-                <id> es13 </id>
-                <nb_enemies> 3 </nb_enemies>
-
-                <ennemi> 
-                    <nom> demon </nom>
-                    <xpos> 1 </xpos>
-                    <ypos> 1 </ypos>
-                    <pattern> h_line </pattern>
-                </ennemi>
-
-                <ennemi> 
-                    <nom> demon_miroir </nom>
-                    <xpos> 2 </xpos>
-                    <ypos> 2 </ypos>
-                    <pattern> v_line </pattern>
-                </ennemi>
-
-                <ennemi> 
-                    <nom> demon </nom>
-                    <xpos> 3 </xpos>
-                    <ypos> 3 </ypos>
-                    <pattern> h_line </pattern>
-                </ennemi>
-
-                <ennemi> 
-                    <nom> demon_miroir </nom>
-                    <xpos> 4 </xpos>
-                    <ypos> 4 </ypos>
-                    <pattern> v_line </pattern>
-                </ennemi>
+			<salle id="es13" nb_enemies="4">
+				<ennemi id ="demon" xpos="1" ypos="1" pattern="h_line">
+				</ennemi>
+				<ennemi id ="demon_miroir" xpos="2" ypos="2" pattern="v_line">
+				</ennemi>
+				<ennemi id ="demon" xpos="3" ypos="3" pattern="h_line">
+				</ennemi>
+				<ennemi id ="demon_miroir" xpos="4" ypos="4" pattern="v_line">
+				</ennemi>
             </salle>
 
-            <salle>
-                <id> es14 </id>
-                <nb_enemies> 5 </nb_enemies>
-                <ennemi> 
-                    <nom> demon </nom>
-                    <xpos> 1 </xpos>
-                    <ypos> 1 </ypos>
-                    <pattern> static </pattern>
-                </ennemi>
-                <ennemi> 
-                    <nom> demon</nom>
-                    <xpos> 2 </xpos>
-                    <ypos> 2 </ypos>
-                    <pattern> static </pattern>
-                </ennemi>
-                <ennemi> 
-                    <nom> demon </nom>
-                    <xpos> 3 </xpos>
-                    <ypos> 3 </ypos>
-                    <pattern> static </pattern>
-                </ennemi>
-                <ennemi> 
-                    <nom> demon </nom>
-                    <xpos> 4 </xpos>
-                    <ypos> 4 </ypos>
-                    <pattern> static </pattern>
-                </ennemi>
-                <ennemi> 
-                    <nom> demon </nom>
-                    <xpos> 5 </xpos>
-                    <ypos> 5 </ypos>
-                    <pattern> static </pattern>
-                </ennemi>
+			<salle id="es14" nb_enemies="5">
+				<ennemi id ="demon" xpos="1" ypos="1" pattern="static">
+				</ennemi>
+				<ennemi id ="demon" xpos="2" ypos="2" pattern="static">
+				</ennemi>
+				<ennemi id ="demon" xpos="3" ypos="3" pattern="static">
+				</ennemi>
+				<ennemi id ="demon" xpos="4" ypos="4" pattern="static">
+				</ennemi>
+				<ennemi id ="demon" xpos="5" ypos="5" pattern="static">
+				</ennemi>
             </salle>
 
-            <salle>
-                <id> es15 </id>
-                <nb_enemies> 1 </nb_enemies>
-                <ennemi> 
-                    <nom> demon_mineur </nom>
-                    <xpos> 2 </xpos>
-                    <ypos> 2 </ypos>
-                    <pattern> circle </pattern>
-                </ennemi>
+			<salle id="es15" nb_enemies="1">
+				<ennemi id ="demon_mineur" xpos="1" ypos="1" pattern="circle">
+				</ennemi>
             </salle>
 
-            <salle>
-                <id> es8 </id>
-                <nb_enemies> 2 </nb_enemies>
-                <ennemi> 
-                    <nom> beholder </nom>
-                    <xpos> 1 </xpos>
-                    <ypos> 1 </ypos>
-                    <pattern> h_line </pattern>
-                </ennemi>
-                <ennemi> 
-                    <nom> beholder </nom>
-                    <xpos> 2 </xpos>
-                    <ypos> 2 </ypos>
-                    <pattern> h_line </pattern>
-                </ennemi>
+			<salle id="es16" nb_enemies="2">
+				<ennemi id ="beholder" xpos="1" ypos="1" pattern="h_line">
+				</ennemi>
+				<ennemi id ="beholder" xpos="2" ypos="2" pattern="h_line">
+				</ennemi>
             </salle>
         </difficulty_rank_2>
 
         <medium_boss>
-            <salle>
-                <id> lb1 </id>
-                <nb_enemies> 1 </nb_enemies>
-                <ennemi> 
-                    <nom> natas </nom>
-                    <xpos> 1 </xpos>
-                    <ypos> 1 </ypos>
-                    <pattern> natas </pattern>
-                </ennemi>
+			<salle id="lb1" nb_enemies="1">
+				<ennemi id ="natas" xpos="1" ypos="1" pattern="natas">
+				</ennemi>
             </salle>
         </medium_boss>
 
         <boss>
-            <salle>
-                <id> b1 </id>
-                <nb_enemies> 3 </nb_enemies>
-                <ennemi> 
-                    <nom> hildegarde </nom>
-                    <xpos> 1 </xpos>
-                    <ypos> 1 </ypos>
-                    <pattern> hildegarde </pattern>
-                </ennemi>
-                <ennemi> 
-                    <nom> demon </nom>
-                    <xpos> 2 </xpos>
-                    <ypos> 2 </ypos>
-                    <pattern> demon </pattern>
-                </ennemi>
-                <ennemi> 
-                    <nom> demon </nom>
-                    <xpos> 3 </xpos>
-                    <ypos> 3 </ypos>
-                    <pattern> demon </pattern>
-                </ennemi>
+			<salle id="b1" nb_enemies="2">
+				<ennemi id ="hildegarde" xpos="1" ypos="1" pattern="hildegarde">
+				</ennemi>
+				<ennemi id ="natas" xpos="2" ypos="2" pattern="natas">
+				</ennemi>
             </salle>
         </boss>
     </esalle>
 
     <hsalle>
-        <salle>
-            <id> hs1 </id>
-            <heal> 25 </heal>
+        <salle id="hs1" heal="25">
         </salle>
-        <salle>
-            <id> hs2 </id>
-            <heal> 50 </heal>
+		<salle id="hs1" heal="50">
         </salle>
-        <salle>
-            <id> hs3 </id>
-            <heal> 75 </heal>
+		<salle id="hs1" heal="75">
         </salle>
-        <salle>
-            <id> hs4 </id>
-            <heal> 100 </heal>
+		<salle id="hs1" heal="100">
         </salle>
     </hsalle>
 
     <usalle>
-        <salle>
-            <id> us1 </id>
-            <nb_upgrade> 1 </nb_upgrade>
+        <salle id="us1" nb_upgrade="1">
         </salle>
-        <salle>
-            <id> us1 </id>
-            <nb_upgrade> 2 </nb_upgrade>
+		<salle id="us2" nb_upgrade="2">
         </salle>
-        <salle>
-            <id> us1 </id>
-            <nb_upgrade> 3 </nb_upgrade>
+		<salle id="us3" nb_upgrade="3">
         </salle>
     </usalle>
     

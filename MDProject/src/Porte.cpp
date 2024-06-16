@@ -4,7 +4,6 @@
 
 Porte::Porte(Salle *salle, bool isRight) {
 	this->salle = salle;
-	this->isRight = isRight;
 	if (isRight) {
 		x = 1;
 		y = 1;

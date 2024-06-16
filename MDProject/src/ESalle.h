@@ -1,5 +1,6 @@
+#pragma once
+
 #include "Salle.h"
-#include "Porte.h"
 #include <pugixml.hpp>
 #include <vector>
 #include "Ennemi.h"
@@ -7,9 +8,9 @@
 
 class ESalle : public Salle {
 private:
-	std::vector<Ennemi> ennemis;
-	pugi::xml_text listeEnnemis;
+	pugi::xml_node room;
+
 public:
 	void GenerateEnnemis();
-	explicit ESalle(int id, Porte *porteR, Porte *porteL, int nsalle, std::vector<Ennemi> ennemis, pugi::xml_document listeEnnemis);
+	explicit ESalle(std::string id, int nsalle, pugi::xml_node room);
 };

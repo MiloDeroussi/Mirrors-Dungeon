@@ -116,4 +116,42 @@ namespace GameTesting {
         EXPECT_FALSE(pistoletPosition.y == moveto2.y - gunt.getPistolet().getSprite().getGlobalBounds().height * 3 / 4);
     }
     
+    TEST(GameTests, dungeon_create) {
+        int difficulty = 1;
+        Donjon donjon;
+        std::vector<Salle::Type> expected_salles = {
+        Salle::Type::ESalle,
+        Salle::Type::ESalle,
+        Salle::Type::USalle,
+        Salle::Type::ESalle,
+        Salle::Type::ESalle,
+        Salle::Type::USalle,
+        Salle::Type::MiniBoss,
+        Salle::Type::HSalle,
+        Salle::Type::ESalle,
+        Salle::Type::ESalle,
+        Salle::Type::USalle,
+        Salle::Type::ESalle,
+        Salle::Type::ESalle,
+        Salle::Type::USalle,
+        Salle::Type::MediumBoss,
+        Salle::Type::HSalle,
+        Salle::Type::Boss
+        };
+
+
+        std::vector<Salle::Type> salles = donjon.GenerateDungeon();
+        EXPECT_EQ(salles.size(), expected_salles.size());
+        for (int i = 0; i < expected_salles.size(); i++) {
+            if (salles.at(i) == Salle::Type::MiniBoss) {
+                difficulty = 2;
+            }
+            EXPECT_EQ(salles.at(i), expected_salles.at(i));
+            Salle salle = donjon.generateSalle(salles, i, difficulty);
+            printf("%s\n\n", salle.getid().c_str());
+        }
+
+
+    }
+
 }

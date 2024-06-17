@@ -8,6 +8,7 @@ Menu::Menu(MenuStateManager& manager) : MenuState(manager) {
     if (!font.loadFromFile("resources/Sansation.ttf")) {
         printf("Error loading font");
     }
+    selectedIndex = 0;
     
     titre.setFont(font); 
     titre.setString("Mirrors Dungeon");
@@ -19,7 +20,6 @@ Menu::Menu(MenuStateManager& manager) : MenuState(manager) {
     playButton.setString("Jouer");
     playButton.setCharacterSize(30);
     playButton.setPosition(h_width - playButton.getGlobalBounds().width / 2, 200);
-    playButton.setFillColor(sf::Color::Red);
     menuItems.push_back(playButton);
 
     optionsButton.setFont(font);
@@ -33,8 +33,6 @@ Menu::Menu(MenuStateManager& manager) : MenuState(manager) {
     exitButton.setCharacterSize(30);
     exitButton.setPosition(h_width - exitButton.getGlobalBounds().width / 2, 400);
     menuItems.push_back(exitButton);
-
-    selectedIndex = 0;
 }
 
 void Menu::render(sf::RenderWindow& window) {
@@ -45,36 +43,20 @@ void Menu::render(sf::RenderWindow& window) {
     }
 }
 
-void Menu::moveUp() {
-    if (selectedIndex - 1 >= 0) {
-        menuItems[selectedIndex].setFillColor(sf::Color::White);
-        selectedIndex--;
-        menuItems[selectedIndex].setFillColor(sf::Color::Red);
+void Menu::handleMouseHover(const sf::Vector2f& mousePosition) {
+    for (size_t i = 0; i < menuItems.size(); ++i) {
+        if (menuItems[i].getGlobalBounds().contains(mousePosition)) {
+            menuItems[selectedIndex].setFillColor(sf::Color::White);
+            selectedIndex = int(i);
+            menuItems[selectedIndex].setFillColor(sf::Color::Red);
+        }
     }
 }
 
-void Menu::moveDown() {
-    if (selectedIndex + 1 < menuItems.size()) {
-        menuItems[selectedIndex].setFillColor(sf::Color::White);
-        selectedIndex++;
-        menuItems[selectedIndex].setFillColor(sf::Color::Red);
-    }
-}
-
-int Menu::getSelectedIndex() const {
-    return selectedIndex;
-}
-
-void Menu::handleEvent(sf::Event event, sf::RenderWindow& window) {
-    if (event.type == sf::Event::KeyPressed) {
-        if (event.key.code == sf::Keyboard::Up) {
-            moveUp();
-        }
-        else if (event.key.code == sf::Keyboard::Down) {
-            moveDown();
-        }
-        else if (event.key.code == sf::Keyboard::Space) {
-            switch (getSelectedIndex()) {
+void Menu::handleMouseClick(const sf::Vector2f& mousePosition, sf::RenderWindow& window) {
+    for (size_t i = 0; i < menuItems.size(); ++i) {
+        if (menuItems[i].getGlobalBounds().contains(mousePosition)) {
+            switch (i) {
             case 0: // Jouer
                 manager.isInGame = true;
                 manager.isInMenu = false;
@@ -92,5 +74,16 @@ void Menu::handleEvent(sf::Event event, sf::RenderWindow& window) {
                 window.close();
             }
         }
+    }
+}
+
+void Menu::handleEvent(sf::Event event, sf::RenderWindow& window) {
+    if (event.type == sf::Event::MouseMoved) {
+        auto mousePosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+        handleMouseHover(mousePosition);
+    }
+    else if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+        auto mousePosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+        handleMouseClick(mousePosition, window);
     }
 }

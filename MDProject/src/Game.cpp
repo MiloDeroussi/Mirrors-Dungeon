@@ -1,9 +1,7 @@
 #include <Game.h>
 #include <Gunther.h>
-#include "Donjon.h"
 #include <sstream>
 #include <iostream>
-
 
 using namespace std;
 
@@ -78,14 +76,6 @@ void Game::draganddrop(sf::Event event) {
 	}
 }
 
-void Game::onclick(sf::Event event) {
-	if (event.type == sf::Event::MouseButtonPressed) {
-		if (event.mouseButton.button == sf::Mouse::Left) {
-
-		}
-	}
-}
-
 void Game::updateStatistics(sf::Time elapsedTime) {
 	mStatisticsUpdateTime += elapsedTime;
 	mStatisticsNumFrames += 1;
@@ -144,16 +134,12 @@ void Game::update(sf::Time elapsedTime) {
 		updateStatistics(elapsedTime);
 		updateBullets(elapsedTime);
 	}
-	if (activeEnnemi.empty() && activeOffEnnemi.empty() && current_room == shared_room.size()) { //CONDITION DE FIN DE JEU 
+	if (activeEnnemi.empty() && activeOffEnnemi.empty()) {
 		menuStateMan.victory = true;
 		menuStateMan.endGame = true;
 		menuStateMan.isInGame = false;
 		sf::Event event; event.type = sf::Event::MouseButtonPressed;
 		menuStateMan.handleEvent(event, mWindow);
-	}
-	else if (activeEnnemi.empty() && activeOffEnnemi.empty()) {
-		current_room++;
-		loadSalle(shared_room.at(current_room));
 	}
 }
 
@@ -180,45 +166,11 @@ void Game::render() {
 	mWindow.display();
 }
 
-void Game::loadSalle(shared_ptr<Salle> salle) {
-
-
-	auto const& salle_ = std::move(salle);
-
-	if (auto eSallePtr = dynamic_pointer_cast<ESalle>(salle_); eSallePtr) {
-		std::vector<Ennemi> ennemi =eSallePtr->GenerateEnnemis();
-		for (auto const& e : ennemi) {
-			getActiveEnnemi().push_back(e);
-		}
-	}
-
-	auto hSallePtr = dynamic_pointer_cast<HSalle>(salle_);
-	if (hSallePtr) {
-
-	}
-}
-
 void Game::run() {
-	int difficulty = 1;
-	Donjon donjon;
-
-	std::vector<Salle::Type> salles = donjon.GenerateDungeon();
-
-	for (int i = 0; i < salles.size(); i++) {
-		if (salles.at(i) == Salle::Type::MiniBoss) {
-			difficulty = 2;
-		}
-		donjon.generateSalle(salles, i, difficulty);
-	}
-
-	shared_room = donjon.getSalles();
-
-	this->loadSalle(shared_room.at(current_room));
-
-	/*auto demon1 = Ennemi(2, 100, 100, "line", "resources/FlameDemon.png", 0);
-	auto demon2 = Offensif(2, 500, 100, "line", "resources/FlameArchDemon.png", 1);
+	auto demon1 = Ennemi(2, 100, 100, "line", "resources/demon_majeur.png", 0);
+	auto demon2 = Offensif(2, 500, 100, "line", "resources/demon_mineur.png", 1);
 	getActiveEnnemi().push_back(demon1); 
-	getActiveOffEnnemi().push_back(demon2);*/
+	getActiveOffEnnemi().push_back(demon2);
 	sf::Clock clock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 	mWindow.setVerticalSyncEnabled(true);

@@ -9,31 +9,38 @@ Donjon::Donjon(): gen(rd()) {
 	racine = doc.document_element();
 }
 
+std::vector<std::shared_ptr<Salle>> Donjon::getSalles()
+{
+	return salles;
+}
+
 std::vector<Salle::Type> Donjon::GenerateDungeon() const {
+	using enum Salle::Type;
+
 	pugi::xml_node node;
 	std::vector<Salle::Type> donjon = {
-		Salle::Type::ESalle,
-		Salle::Type::ESalle,
-		Salle::Type::USalle,
-		Salle::Type::ESalle,
-		Salle::Type::ESalle,
-		Salle::Type::USalle,
-		Salle::Type::MiniBoss,
-		Salle::Type::HSalle,
-		Salle::Type::ESalle,
-		Salle::Type::ESalle,
-		Salle::Type::USalle,
-		Salle::Type::ESalle,
-		Salle::Type::ESalle,
-		Salle::Type::USalle,
-		Salle::Type::MediumBoss,
-		Salle::Type::HSalle,
-		Salle::Type::Boss
+		ESalle,
+		ESalle,
+		
+		ESalle,
+		ESalle,
+		
+		MiniBoss,
+		HSalle,
+		ESalle,
+		ESalle,
+		
+		ESalle,
+		ESalle,
+		
+		MediumBoss,
+		HSalle,
+		Boss
 	};
 	return donjon;
 }
 
-Salle Donjon::generateSalle(std::vector<Salle::Type> donjon, int index, int difficulty) {
+void Donjon::generateSalle(std::vector<Salle::Type> donjon, int index, int difficulty) {
 	pugi::xml_node node;
 	pugi::xml_node room;
 	if (donjon.at(index) == Salle::Type::USalle) {
@@ -63,13 +70,13 @@ Salle Donjon::generateSalle(std::vector<Salle::Type> donjon, int index, int diff
 
 	int randnode = 0;
 
-	int nb = std::distance(node.children("salle").begin(), node.children("salle").end());
+	auto nb = (int) std::distance(node.children("salle").begin(), node.children("salle").end());
 
 	if (nb == 0){
 		printf("No node found\n");
 	}
 	else {
-		std::uniform_int_distribution<> dis(0, nb-1);
+		std::uniform_int_distribution dis(0, nb-1);
 		randnode = dis(gen);
 	}
 		
@@ -85,19 +92,19 @@ Salle Donjon::generateSalle(std::vector<Salle::Type> donjon, int index, int diff
 	
 
 	if (donjon.at(index) == Salle::Type::USalle) {
-		auto salle = USalle(room.attribute("id").as_string(), index, room.attribute("nb_upgrade").as_int());
+		auto salle = std::make_shared<USalle>(room.attribute("id").as_string(), index, room.attribute("nb_upgrade").as_int());
 		salles.push_back(salle);
-		return salle;
+		
 	}
 	else if (donjon.at(index) == Salle::Type::HSalle) {
-		auto salle = HSalle(room.attribute("id").value(), index,room.attribute("heal").as_int());
+		auto salle = std::make_shared<HSalle>(room.attribute("id").value(), index,room.attribute("heal").as_int());
 		salles.push_back(salle);
-		return salle;
+		
 	}
 	else {
-		auto salle = ESalle(room.attribute("id").value(), index, room);
+		auto salle = std::make_shared<ESalle>(room.attribute("id").value(), index, room);
 		salles.push_back(salle);
-		return salle;
+		
 	}
 	
 	

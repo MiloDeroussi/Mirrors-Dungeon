@@ -3,6 +3,7 @@
 #include <pugixml.hpp>
 #include <vector>
 #include <random>
+#include <memory>
 #include "HSalle.h"
 #include "USalle.h"
 #include "ESalle.h"
@@ -16,10 +17,11 @@ private:
 	pugi::xml_node racine ;
 	std::random_device rd;
 	std::mt19937 gen;
-	std::vector<Salle> salles;
+	std::vector<std::shared_ptr<Salle>> salles;
 public:
 	std::vector<Salle::Type> GenerateDungeon() const;
-	Salle generateSalle(std::vector<Salle::Type> donjon, int index, int difficulty);
+	void generateSalle(std::vector<Salle::Type> donjon, int index, int difficulty);
 	explicit Donjon();
-
+	std::vector<std::shared_ptr<Salle>> getSalles();
 };
+

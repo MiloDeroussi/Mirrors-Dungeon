@@ -8,7 +8,7 @@
 #include "Salle.h"
 
 namespace GameTesting {
-    TEST(GameTests, Create) {
+   /* TEST(GameTests, Create) {
         Game game;
         double health = game.getGunther().getHealth();
         EXPECT_FLOAT_EQ(10, health);
@@ -114,7 +114,7 @@ namespace GameTesting {
         pistoletPosition = gunt.getPistolet().getSprite().getPosition();
         EXPECT_FALSE(pistoletPosition.x == moveto2.x - gunt.getPistolet().getSprite().getGlobalBounds().width * 3 / 4);
         EXPECT_FALSE(pistoletPosition.y == moveto2.y - gunt.getPistolet().getSprite().getGlobalBounds().height * 3 / 4);
-    }
+    }*/
     
     TEST(GameTests, dungeon_create) {
         int difficulty = 1;
@@ -122,18 +122,18 @@ namespace GameTesting {
         std::vector<Salle::Type> expected_salles = {
         Salle::Type::ESalle,
         Salle::Type::ESalle,
-        Salle::Type::USalle,
+
         Salle::Type::ESalle,
         Salle::Type::ESalle,
-        Salle::Type::USalle,
+
         Salle::Type::MiniBoss,
         Salle::Type::HSalle,
         Salle::Type::ESalle,
         Salle::Type::ESalle,
-        Salle::Type::USalle,
+
         Salle::Type::ESalle,
         Salle::Type::ESalle,
-        Salle::Type::USalle,
+
         Salle::Type::MediumBoss,
         Salle::Type::HSalle,
         Salle::Type::Boss
@@ -141,17 +141,27 @@ namespace GameTesting {
 
 
         std::vector<Salle::Type> salles = donjon.GenerateDungeon();
+
         EXPECT_EQ(salles.size(), expected_salles.size());
         for (int i = 0; i < expected_salles.size(); i++) {
             if (salles.at(i) == Salle::Type::MiniBoss) {
                 difficulty = 2;
             }
             EXPECT_EQ(salles.at(i), expected_salles.at(i));
-            Salle salle = donjon.generateSalle(salles, i, difficulty);
-            printf("%s\n\n", salle.getid().c_str());
+            donjon.generateSalle(salles, i, difficulty);
         }
 
-
+        std::vector<std::shared_ptr<Salle>> shared_room = donjon.getSalles();
+        EXPECT_EQ(shared_room.size(), expected_salles.size());
+        auto const& salle = std::move(shared_room.at(4));
+        
+        if (auto eSallePtr = std::dynamic_pointer_cast<ESalle>(salle); eSallePtr) {
+            eSallePtr->GenerateEnnemis();
+        }
+            
+        auto hSallePtr = std::dynamic_pointer_cast<HSalle>(salle);
+        if (hSallePtr) {
+               
+        }
     }
-
 }

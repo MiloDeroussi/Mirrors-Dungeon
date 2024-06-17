@@ -14,9 +14,10 @@ public:
 	enum class Type { ESalle, MiniBoss, MediumBoss, Boss, HSalle, USalle };
 	explicit Salle(std::string id, int nsalle);
 
-	void Draw();
+	virtual void Draw();
 	void DrawDoors();
 	std::string getid();
+	virtual ~Salle() = default;
 };
 
 #endif // !__SALLE_H__

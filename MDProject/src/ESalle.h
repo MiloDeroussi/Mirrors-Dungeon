@@ -11,6 +11,9 @@ private:
 	pugi::xml_node room;
 
 public:
-	void GenerateEnnemis();
-	explicit ESalle(std::string id, int nsalle, pugi::xml_node room);
+	std::vector<Ennemi> GenerateEnnemis() const;
+	double defineHealth(std::string const& str) const;
+	double defineAttack(std::string const& str) const;
+	std::string defineSprite(std::string const& str) const;
+	explicit ESalle(std::string const & id, int nsalle, pugi::xml_node room);
 };

@@ -7,7 +7,7 @@ Ennemi::Ennemi(double health, double x, double y, const std::string& pattern, co
 	EnnemiSprite.setTexture(TextureEnnemi);
 	EnnemiSprite.setColor(sf::Color::White);
 	EnnemiSprite.setPosition(float(x), float(y));
-	EnnemiSprite.setScale(2.5, 2.5);
+	EnnemiSprite.setScale(0.5, 0.5);
 }
 
 void Ennemi::render(sf::RenderWindow& window) const {

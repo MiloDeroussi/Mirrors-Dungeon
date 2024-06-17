@@ -23,7 +23,7 @@ void Pistolet::shoot(std::vector<Ennemi>& activeEnnemi, std::vector<Offensif>& a
 	else if (!ballePool.empty()) {
 		reload = sf::Time::Zero;
 		Balle& cur = ballePool.front();
-		cur.getSprite().setPosition(getSprite().getPosition().x - getSprite().getGlobalBounds().width / 4, getSprite().getPosition().y - getSprite().getGlobalBounds().width / 4);
+		cur.getSprite().setPosition(getSprite().getPosition().x + getSprite().getGlobalBounds().width / 2 + 5, getSprite().getPosition().y - getSprite().getGlobalBounds().height / 4 + 5);
 		cur.getSprite().setTexture(cur.getTexture());
 		cur.getSprite().setScale(float(0.1), float(0.1));
 		cur.getSprite().setColor(sf::Color::Blue);
@@ -45,7 +45,7 @@ std::vector<Balle>& Pistolet::getBallePool() {
 }
 
 void Pistolet::move(sf::Vector2f& mousePosition) {
-	mousePosition.x -= getSprite().getGlobalBounds().width*3/4;
+	mousePosition.x -= getSprite().getGlobalBounds().width*1/4;
 	mousePosition.y -= getSprite().getGlobalBounds().height*3/4;
 	this->setPosition(mousePosition);
 }

@@ -30,7 +30,7 @@ MenuFin::MenuFin(MenuStateManager& manager) : MenuState(manager) {
     backText.setFont(font);
     backText.setString("Appuyez pour quitter");
     backText.setCharacterSize(20);
-    backText.setPosition(sf::Vector2f(manager.width - backText.getGlobalBounds().width - 10, manager.height - backText.getGlobalBounds().height - 10));
+    backText.setPosition(sf::Vector2f(manager.width - backText.getGlobalBounds().width - 20, manager.height - backText.getGlobalBounds().height - 20));
 }
 
 void MenuFin::render(sf::RenderWindow& window) {

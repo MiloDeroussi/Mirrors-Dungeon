@@ -11,7 +11,7 @@ MenuStateManager::MenuStateManager() {
     if (!textureMenuRegles.loadFromFile("resources/Regles.jpg")) {
         printf("Impossible de load textureMenuRegles\n");
     }
-    if (!textureFin.loadFromFile("resources/Regles.jpg")) {
+    if (!textureFin.loadFromFile("resources/Donjon.png")) {
         printf("Impossible de load textureFin\n");
     }
 

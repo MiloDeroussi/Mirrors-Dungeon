@@ -18,6 +18,8 @@ public:
     explicit Menu(MenuStateManager& manager);
     void render(sf::RenderWindow& window) override;
     void handleEvent(sf::Event event, sf::RenderWindow& window) override;
+    void handleMouseHover(const sf::Vector2f& mousePosition);
+    void handleMouseClick(const sf::Vector2f& mousePosition, sf::RenderWindow& window);
     void moveUp();
     void moveDown();
     int getSelectedIndex() const;

@@ -167,8 +167,8 @@ void Game::render() {
 }
 
 void Game::run() {
-	auto demon1 = Ennemi(2, 100, 100, "line", "resources/FlameDemon.png", 0);
-	auto demon2 = Offensif(2, 500, 100, "line", "resources/FlameArchDemon.png", 1);
+	auto demon1 = Ennemi(2, 100, 100, "line", "resources/demon_majeur.png", 0);
+	auto demon2 = Offensif(2, 500, 100, "line", "resources/demon_mineur.png", 1);
 	getActiveEnnemi().push_back(demon1); 
 	getActiveOffEnnemi().push_back(demon2);
 	sf::Clock clock;

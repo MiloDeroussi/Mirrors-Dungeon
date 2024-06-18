@@ -118,7 +118,7 @@ double ESalle::defineAttack(std::string const& str) const {
 
 bool ESalle::defineType(std::string const& str) const {
 	if (str == std::string_view("demon")) {
-		return false;
+		return true;
 	}
 	else if (str == std::string_view("demon_mineur")) {
 		return true;

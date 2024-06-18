@@ -56,33 +56,32 @@ sf::Time& Pistolet::getReloadTime() {
 
 void Pistolet::dealDamage(std::vector<Ennemi>& activeEnnemi, std::vector<Offensif>& activeOffEnnemi) {
 	for (Balle& bullet : activeBalle) {
-		int i = 0;
-		for (Ennemi& ennemi : activeEnnemi) {
+		for (int i = activeEnnemi.size() - 1; i >= 0; --i) {
+			Ennemi& ennemi = activeEnnemi[i];
 			if (ennemi.getEnnemiSprite().getGlobalBounds().contains(bullet.getSprite().getPosition())) {
 				ennemi.doDamage(bullet.getDamage());
-				killEnnemi(ennemi, activeEnnemi, i);
+				killEnnemi(activeEnnemi[i], activeEnnemi, i);
 			}
-			i++;
 		}
-		i = 0;
-		for (Offensif& ennemi : activeOffEnnemi) {
+		for (int i = activeOffEnnemi.size() - 1; i >= 0; --i) {
+			Offensif& ennemi = activeOffEnnemi[i];
 			if (ennemi.getEnnemiSprite().getGlobalBounds().contains(bullet.getSprite().getPosition())) {
 				ennemi.doDamage(bullet.getDamage());
-				killOffEnnemi(ennemi, activeOffEnnemi, i);
+				killOffEnnemi(activeOffEnnemi[i], activeOffEnnemi, i);
 			}
-			i++;
 		}
 	}
 }
 
+
 void Pistolet::killEnnemi(const Ennemi& ennemi, std::vector<Ennemi>& activeEnnemi, int i) const {
-	if (!ennemi.getAlive()) {
+	if (!activeEnnemi[i].getAlive()) {
 		activeEnnemi.erase(activeEnnemi.begin() + i);
 	}
 }
 
 void Pistolet::killOffEnnemi(const Ennemi& ennemi, std::vector<Offensif>& activeOffEnnemi, int i) const {
-	if (!ennemi.getAlive()) {
+	if (!activeOffEnnemi[i].getAlive()) {
 		activeOffEnnemi.erase(activeOffEnnemi.begin() + i);
 	}
 }

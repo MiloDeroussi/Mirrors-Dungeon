@@ -3,8 +3,9 @@
 using namespace std;
 
 Ennemi::Ennemi(double health, double x, double y, const std::string& pattern, const std::string& text, double attack) : Blessable(health), MovePattern(pattern), text(text), attack(attack) {
-	TextureEnnemi.loadFromFile(text);
-	EnnemiSprite.setTexture(TextureEnnemi);
+	TextureEnnemi = std::make_shared<sf::Texture>();
+	TextureEnnemi->loadFromFile(text);
+	EnnemiSprite.setTexture(*TextureEnnemi);
 	EnnemiSprite.setColor(sf::Color::White);
 	EnnemiSprite.setPosition(float(x), float(y));
 	EnnemiSprite.setScale(0.5, 0.5);

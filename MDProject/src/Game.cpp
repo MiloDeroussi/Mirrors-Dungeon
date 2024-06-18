@@ -3,6 +3,8 @@
 #include "Donjon.h"
 #include <sstream>
 #include <iostream>
+#include <chrono>
+#include <thread>
 
 
 using namespace std;
@@ -140,7 +142,7 @@ void Game::update(sf::Time elapsedTime) {
 		updateStatistics(elapsedTime);
 		updateBullets(elapsedTime);
 	}
-	if (activeEnnemi.empty() && activeOffEnnemi.empty() && current_room == shared_room.size()) { //CONDITION DE FIN DE JEU 
+	if (activeEnnemi.empty() && activeOffEnnemi.empty() && current_room + 1 == shared_room.size()) { //CONDITION DE FIN DE JEU 
 		menuStateMan.victory = true;
 		menuStateMan.endGame = true;
 		menuStateMan.isInGame = false;
@@ -148,24 +150,39 @@ void Game::update(sf::Time elapsedTime) {
 		menuStateMan.handleEvent(event, mWindow);
 	}
 	else if (activeEnnemi.empty() && activeOffEnnemi.empty()) {
-		current_room++;
-		loadSalle(shared_room.at(current_room));
+		
+		if (clock.getElapsedTime().asSeconds() >= 2.0f) {
+			current_room++;
+			loadSalle(shared_room.at(current_room));
+			clock.restart();
+		}
+		
 	}
+	else {
+		clock.restart();
+	}
+
 }
 
-void Game::render() {
+void Game::render(shared_ptr<Salle> salle) {
 	mWindow.clear();
 	menuStateMan.render(mWindow);
 	if (menuStateMan.isInGame) {
-		for (const Ennemi& ennemi : getActiveEnnemi()) {
-			ennemi.render(mWindow);
-		}
-		for (Offensif& ennemi : getActiveOffEnnemi()) {
-			ennemi.render(mWindow);
-			for (const Balle& bullet : ennemi.getActiveBalleEnnemi()) {
-				bullet.render(mWindow);
+		if (auto eSallePtr = dynamic_pointer_cast<ESalle>(salle); eSallePtr) {
+			for (const Ennemi& ennemi : getActiveEnnemi()) {
+				ennemi.render(mWindow);
+			}
+			for (Offensif& ennemi : getActiveOffEnnemi()) {
+				ennemi.render(mWindow);
+				for (const Balle& bullet : ennemi.getActiveBalleEnnemi()) {
+					bullet.render(mWindow);
+				}
 			}
 		}
+		else if (auto hSallePtr = dynamic_pointer_cast<HSalle>(salle); hSallePtr) {
+			hSallePtr.get()->render(mWindow);
+		}
+
 		gunt.getPistolet().render(mWindow);
 		for (const Balle& bullet : gunt.getPistolet().getActiveBalle()) {
 			bullet.render(mWindow);
@@ -177,15 +194,17 @@ void Game::render() {
 }
 
 void Game::loadSalle(shared_ptr<Salle> salle) {
-	auto const& salle_ = std::move(salle);
 
-	if (auto eSallePtr = dynamic_pointer_cast<ESalle>(salle_); eSallePtr) {
-		for (Ennemi e : eSallePtr->getEnnemis()) {
+	if (auto eSallePtr = dynamic_pointer_cast<ESalle>(salle); eSallePtr) {
+		for (const Ennemi& e : eSallePtr->getEnnemis()) {
 			getActiveEnnemi().push_back(e);
 		}
-		for (Offensif e : eSallePtr->getEnnemisOff()) {
+		for (const Offensif& e : eSallePtr->getEnnemisOff()) {
 			getActiveOffEnnemi().push_back(e);
 		}
+	}
+	if (auto hSallePtr = dynamic_pointer_cast<HSalle>(salle); hSallePtr) {
+		gunt.doDamage(-hSallePtr->Heal(gunt.getMaxHealth()));
 	}
 }
 
@@ -205,12 +224,12 @@ void Game::run() {
 	}
 	loadSalle(getRoom().at(current_room));
 
-	sf::Clock clock;
+	sf::Clock clock_;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 	mWindow.setVerticalSyncEnabled(true);
 	while (mWindow.isOpen())
 	{
-		sf::Time elapsedTime = clock.restart();
+		sf::Time elapsedTime = clock_.restart();
 		timeSinceLastUpdate += elapsedTime;
 		while (timeSinceLastUpdate > TimePerFrame)
 		{
@@ -219,7 +238,7 @@ void Game::run() {
 			processEvents();
 		}
 		update(elapsedTime);
-		render();
+		render(getRoom().at(current_room));
 
 	}
 }

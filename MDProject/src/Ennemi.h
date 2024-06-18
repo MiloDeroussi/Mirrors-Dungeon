@@ -4,10 +4,11 @@
 #include "Blessable.h"
 #include <string>
 #include <vector>
+#include <memory>
 
 class Ennemi : public Blessable {
 private:
-	sf::Texture TextureEnnemi;
+	std::shared_ptr<sf::Texture> TextureEnnemi;
 	sf::Sprite EnnemiSprite;
 	std::string MovePattern;
 	std::string text;

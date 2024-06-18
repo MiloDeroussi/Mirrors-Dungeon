@@ -16,7 +16,7 @@
 
 class Game : private sf::NonCopyable {
 private:
-	Gunther gunt = Gunther(5);
+	Gunther gunt = Gunther(15);
 	std::vector<Offensif> activeOffEnnemi;
 	std::vector<Ennemi> activeEnnemi;
 	std::vector<sf::Texture> allText;
@@ -32,6 +32,7 @@ private:
 	std::size_t mStatisticsNumFrames{ 0 };
 	int current_room = 0;
 	std::vector<std::shared_ptr<Salle>> shared_room;
+	sf::Clock clock;
 
 public:
 	const sf::Time TimePerFrame = sf::seconds(1.f / 60.f);
@@ -46,7 +47,7 @@ public:
 	void update(sf::Time elapsedTime);
 	void updateStatistics(sf::Time elapsedTime);
 	void updateBullets(sf::Time elapsedTime);
-	void render();
+	void render(std::shared_ptr<Salle> salle);
 	void draganddrop(sf::Event event);
 	void loadSalle(std::shared_ptr<Salle> salle);
 };

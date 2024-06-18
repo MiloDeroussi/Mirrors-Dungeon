@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Ennemi::Ennemi(double health, double x, double y, const std::string& pattern, const std::string& text, double attack) : Blessable(health), MovePattern(pattern), attack(attack) {
+Ennemi::Ennemi(double health, double x, double y, const std::string& pattern, const std::string& text, double attack) : Blessable(health), MovePattern(pattern), text(text), attack(attack) {
 	TextureEnnemi.loadFromFile(text);
 	EnnemiSprite.setTexture(TextureEnnemi);
 	EnnemiSprite.setColor(sf::Color::White);
@@ -18,12 +18,16 @@ std::string Ennemi::getPattern() const {
 	return MovePattern;
 }
 
-void Ennemi::move() const {/*En cours*/}
+void Ennemi::move() const {/*En cours*/ }
 
 Ennemi::~Ennemi() = default;
 
 sf::Sprite& Ennemi::getEnnemiSprite() {
 	return EnnemiSprite;
+}
+
+std::string Ennemi::getText() const {
+	return text;
 }
 
 double Ennemi::getAttack() const {

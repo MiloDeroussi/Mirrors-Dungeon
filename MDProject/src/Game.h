@@ -1,12 +1,15 @@
 #pragma once
 #include "SFML/Graphics.hpp"
+#include "SFML/Audio.hpp"
 #include "RoundTarget.h"
 #include <vector>
+#include <memory>
 #include "Gunther.h"
 #include "BouclierMiroir.h"
 #include "Pistolet.h"
 #include "Ennemi.h"
 #include "Offensif.h"
+#include "Salle.h"
 #include "Menu.h"
 #include "MenuOptions.h"
 #include "MenuStateManager.h"
@@ -16,6 +19,7 @@ private:
 	Gunther gunt = Gunther(5);
 	std::vector<Offensif> activeOffEnnemi;
 	std::vector<Ennemi> activeEnnemi;
+	std::vector<sf::Texture> allText;
 	bool isDraggingBouclier = false;
 	bool isDraggingPistolet = false;
 	sf::Text mStatisticsText;
@@ -26,12 +30,15 @@ private:
 	sf::Time mBulletsUpdateTime = sf::Time::Zero;
 	sf::Time spawnBullets = sf::Time::Zero;
 	std::size_t mStatisticsNumFrames{ 0 };
+	int current_room = 0;
+	std::vector<std::shared_ptr<Salle>> shared_room;
 
 public:
 	const sf::Time TimePerFrame = sf::seconds(1.f / 60.f);
 	explicit Game();
 	std::vector<Offensif>& getActiveOffEnnemi();
 	std::vector<Ennemi>& getActiveEnnemi();
+	std::vector<std::shared_ptr<Salle>>& getRoom();
 	sf::RenderWindow& getWindow();
 	Gunther& getGunther();
 	void run();
@@ -41,5 +48,5 @@ public:
 	void updateBullets(sf::Time elapsedTime);
 	void render();
 	void draganddrop(sf::Event event);
-	void handleMenu(sf::Event event);
+	void loadSalle(std::shared_ptr<Salle> salle);
 };

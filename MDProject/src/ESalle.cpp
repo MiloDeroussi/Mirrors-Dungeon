@@ -1,22 +1,28 @@
 #include "ESalle.h"
 #include <string_view>
 
-ESalle::ESalle(std::string const& id, int nsalle, pugi::xml_node room) : Salle(id,nsalle) {
-	this->room = room;
-
-}
-
-std::vector<Ennemi> ESalle::GenerateEnnemis() const {
-	std::vector<Ennemi> ennemies;
-	
+ESalle::ESalle(std::string const& id, int nsalle, pugi::xml_node room) : Salle(id,nsalle), room(room) {
 	for (const auto& child : room.children()) {
 		if (child.name() == std::string("ennemi")) {
-			std::string id = child.attribute("id").as_string();
-// faire une condition pour séparer Offensif et Non Offensif
-			ennemies.emplace_back(defineHealth(id), child.attribute("xpos").as_int(), child.attribute("ypos").as_int(), child.attribute("pattern").as_string(), defineSprite(id), defineAttack(id));
+			std::string id_en = child.attribute("id").as_string();
+			if (defineType(id_en)) {
+				Offensif ennemi(defineHealth(id_en), child.attribute("xpos").as_int(), child.attribute("ypos").as_int(), child.attribute("pattern").as_string(), defineSprite(id_en), defineAttack(id_en));
+				ennemis_off.push_back(ennemi);
+			}
+			else {
+				Ennemi ennemi(defineHealth(id_en), child.attribute("xpos").as_int(), child.attribute("ypos").as_int(), child.attribute("pattern").as_string(), defineSprite(id_en), defineAttack(id_en));
+				ennemis.push_back(ennemi);
+			}
 		}
 	}
-	return ennemies;
+}
+
+std::vector<Ennemi>& ESalle::getEnnemis() {
+	return ennemis;
+}
+
+std::vector<Offensif>& ESalle::getEnnemisOff() {
+	return ennemis_off;
 }
 
 std::string ESalle::defineSprite(std::string const &str) const {
@@ -44,6 +50,9 @@ std::string ESalle::defineSprite(std::string const &str) const {
 	else if (str == std::string_view("hildegarde")) {
 		return std::string("resources/hildegarde.png");
 	}
+	else {
+		exit(0);
+	}
 	
 }
 
@@ -58,19 +67,22 @@ double ESalle::defineHealth(std::string const & str) const {
 		return 3.0;
 	}
 	else if (str == std::string_view("demon_miroir")) {
-		return 5.0;
+		return 3.0;
 	}
 	else if (str == std::string_view("demon_majeur")) {
-		return 7.0;
+		return 5.0;
 	}
 	else if (str == std::string_view("beholder")) {
-		return 10.0;
+		return 7.0;
 	}
 	else if (str == std::string_view("natas")) {
-		return 12.0;
+		return 10.0;
 	}
 	else if (str == std::string_view("hildegarde")) {
-		return 10.0;
+		return 8.0;
+	}
+	else {
+		exit(0);
 	}
 }
 
@@ -98,5 +110,38 @@ double ESalle::defineAttack(std::string const& str) const {
 	}
 	else if (str == std::string_view("hildegarde")) {
 		return 7.0;
+	}
+	else {
+		exit(0);
+	}
+}
+
+bool ESalle::defineType(std::string const& str) const {
+	if (str == std::string_view("demon")) {
+		return false;
+	}
+	else if (str == std::string_view("demon_mineur")) {
+		return true;
+	}
+	else if (str == std::string_view("demon_shield")) {
+		return false;
+	}
+	else if (str == std::string_view("demon_miroir")) {
+		return false;
+	}
+	else if (str == std::string_view("demon_majeur")) {
+		return true;
+	}
+	else if (str == std::string_view("beholder")) {
+		return true;
+	}
+	else if (str == std::string_view("natas")) {
+		return true;
+	}
+	else if (str == std::string_view("hildegarde")) {
+		return true;
+	}
+	else {
+		exit(0);
 	}
 }

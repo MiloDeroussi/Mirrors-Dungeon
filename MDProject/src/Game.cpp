@@ -1,7 +1,9 @@
 #include <Game.h>
 #include <Gunther.h>
+#include "Donjon.h"
 #include <sstream>
 #include <iostream>
+
 
 using namespace std;
 
@@ -22,6 +24,10 @@ std::vector<Offensif>& Game::getActiveOffEnnemi() {
 
 std::vector<Ennemi>& Game::getActiveEnnemi() {
 	return activeEnnemi;
+}
+
+std::vector<std::shared_ptr<Salle>>& Game::getRoom() {
+	return shared_room;
 }
 
 sf::RenderWindow& Game::getWindow() {
@@ -134,12 +140,16 @@ void Game::update(sf::Time elapsedTime) {
 		updateStatistics(elapsedTime);
 		updateBullets(elapsedTime);
 	}
-	if (activeEnnemi.empty() && activeOffEnnemi.empty()) {
+	if (activeEnnemi.empty() && activeOffEnnemi.empty() && current_room == shared_room.size()) { //CONDITION DE FIN DE JEU 
 		menuStateMan.victory = true;
 		menuStateMan.endGame = true;
 		menuStateMan.isInGame = false;
 		sf::Event event; event.type = sf::Event::MouseButtonPressed;
 		menuStateMan.handleEvent(event, mWindow);
+	}
+	else if (activeEnnemi.empty() && activeOffEnnemi.empty()) {
+		current_room++;
+		loadSalle(shared_room.at(current_room));
 	}
 }
 
@@ -166,11 +176,35 @@ void Game::render() {
 	mWindow.display();
 }
 
+void Game::loadSalle(shared_ptr<Salle> salle) {
+	auto const& salle_ = std::move(salle);
+
+	if (auto eSallePtr = dynamic_pointer_cast<ESalle>(salle_); eSallePtr) {
+		for (Ennemi e : eSallePtr->getEnnemis()) {
+			getActiveEnnemi().push_back(e);
+		}
+		for (Offensif e : eSallePtr->getEnnemisOff()) {
+			getActiveOffEnnemi().push_back(e);
+		}
+	}
+}
+
 void Game::run() {
-	auto demon1 = Ennemi(2, 100, 100, "line", "resources/demon_majeur.png", 0);
-	auto demon2 = Offensif(2, 500, 100, "line", "resources/demon_mineur.png", 1);
-	getActiveEnnemi().push_back(demon1); 
-	getActiveOffEnnemi().push_back(demon2);
+	int difficulty = 1;
+	Donjon donjon;
+	std::vector<Salle::Type>& salles = donjon.getDungeonPath();
+
+	for (int i = 0; i < salles.size(); i++) {
+		if (salles.at(i) == Salle::Type::MiniBoss) {
+			difficulty = 2;
+		}
+		donjon.generateSalle(salles, i, difficulty);
+	}
+	for (const auto& s : donjon.getSalles()) {
+		getRoom().push_back(s);
+	}
+	loadSalle(getRoom().at(current_room));
+
 	sf::Clock clock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 	mWindow.setVerticalSyncEnabled(true);

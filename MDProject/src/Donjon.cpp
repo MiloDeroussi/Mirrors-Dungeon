@@ -7,37 +7,36 @@ Donjon::Donjon(): gen(rd()) {
         std::cerr << "Could not open file salles.xml because " << result.description() << std::endl;
     }
 	racine = doc.document_element();
-}
-
-std::vector<std::shared_ptr<Salle>> Donjon::getSalles()
-{
-	return salles;
-}
-
-std::vector<Salle::Type> Donjon::GenerateDungeon() const {
 	using enum Salle::Type;
 
 	pugi::xml_node node;
-	std::vector<Salle::Type> donjon = {
+	donjon_path = {
 		ESalle,
 		ESalle,
-		
+
 		ESalle,
 		ESalle,
-		
+
 		MiniBoss,
 		HSalle,
 		ESalle,
 		ESalle,
-		
+
 		ESalle,
 		ESalle,
-		
+
 		MediumBoss,
 		HSalle,
 		Boss
 	};
-	return donjon;
+}
+
+std::vector<std::shared_ptr<Salle>>& Donjon::getSalles() {
+	return salles;
+}
+
+std::vector<Salle::Type>& Donjon::getDungeonPath() {
+	return donjon_path;
 }
 
 void Donjon::generateSalle(std::vector<Salle::Type> donjon, int index, int difficulty) {
@@ -70,26 +69,24 @@ void Donjon::generateSalle(std::vector<Salle::Type> donjon, int index, int diffi
 
 	int randnode = 0;
 
-	auto nb = (int) std::distance(node.children("salle").begin(), node.children("salle").end());
 
-	if (nb == 0){
-		printf("No node found\n");
+	if (auto nb = (int) std::distance(node.children("salle").begin(), node.children("salle").end()); nb == 0){
+		std::cout << "No node found\n";
 	}
 	else {
 		std::uniform_int_distribution dis(0, nb-1);
 		randnode = dis(gen);
 	}
 		
-	nb = 0;
+	int i = 0;
 	for (auto n : node.children()) {
-		if (nb == randnode) {
+		if (i == randnode) {
 			room = n;
 			break;
 		}
-		nb++;
+		i++;
 	}
-	printf(room.child_value("id"));
-	
+	std::cout << room.child_value("id");
 
 	if (donjon.at(index) == Salle::Type::USalle) {
 		auto salle = std::make_shared<USalle>(room.attribute("id").as_string(), index, room.attribute("nb_upgrade").as_int());
@@ -104,10 +101,6 @@ void Donjon::generateSalle(std::vector<Salle::Type> donjon, int index, int diffi
 	else {
 		auto salle = std::make_shared<ESalle>(room.attribute("id").value(), index, room);
 		salles.push_back(salle);
-		
 	}
-	
-	
-	
 }
 

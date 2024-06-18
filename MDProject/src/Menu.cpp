@@ -9,8 +9,8 @@ Menu::Menu(MenuStateManager& manager) : MenuState(manager) {
         printf("Error loading font");
     }
     selectedIndex = 0;
-    
-    titre.setFont(font); 
+
+    titre.setFont(font);
     titre.setString("Mirrors Dungeon");
     titre.setCharacterSize(50);
     titre.setPosition(sf::Vector2f(h_width - titre.getGlobalBounds().width / 2, 50));

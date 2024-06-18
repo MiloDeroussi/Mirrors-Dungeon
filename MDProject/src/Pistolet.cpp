@@ -45,8 +45,8 @@ std::vector<Balle>& Pistolet::getBallePool() {
 }
 
 void Pistolet::move(sf::Vector2f& mousePosition) {
-	mousePosition.x -= getSprite().getGlobalBounds().width*1/4;
-	mousePosition.y -= getSprite().getGlobalBounds().height*3/4;
+	mousePosition.x -= getSprite().getGlobalBounds().width * 1 / 4;
+	mousePosition.y -= getSprite().getGlobalBounds().height * 3 / 4;
 	this->setPosition(mousePosition);
 }
 

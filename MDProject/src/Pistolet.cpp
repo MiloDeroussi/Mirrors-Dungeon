@@ -17,7 +17,7 @@ Pistolet::Pistolet(double x, double y, const std::string& text) : RoundTarget(sf
 Pistolet::~Pistolet() = default;
 
 void Pistolet::shoot(std::vector<Ennemi>& activeEnnemi, std::vector<Offensif>& activeOffEnnemi) {
-	if (reload < sf::seconds(2.0)) {
+	if (reload < sf::seconds(1.5)) {
 		std::cout << "Rechargement !" << endl;
 	}
 	else if (!ballePool.empty()) {

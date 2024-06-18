@@ -9,15 +9,14 @@ class Salle;
 
 class Porte {
 private:
-	Salle *salle;
+	Salle* salle;
 	double x;
 	double y;
 	double xshape;
 	double yshape;
 public:
 	explicit Porte(Salle* salle, bool isRight);
-	explicit Porte();
-	void onClick();
+	void onClick() const;
 };
 
 #endif // !__PORTE_H__

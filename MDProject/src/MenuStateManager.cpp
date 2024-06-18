@@ -5,7 +5,7 @@ MenuStateManager::MenuStateManager() {
     if (!textureJeu.loadFromFile("resources/Donjon.png")) {
         printf("Impossible de load textureJeu\n");
     }
-    if (!textureMenuPrincipal.loadFromFile("resources/Donjon.png")) {
+    if (!textureMenuPrincipal.loadFromFile("resources/Regles.jpg")) {
         printf("Impossible de load textureMenuPrincipal\n");
     }
     if (!textureMenuRegles.loadFromFile("resources/Regles.jpg")) {

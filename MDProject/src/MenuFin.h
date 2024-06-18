@@ -11,6 +11,7 @@ private:
     sf::Text loseText1;
     sf::Text winText2;
     sf::Text loseText2;
+    sf::Text loseText3;
     sf::Text backText;
 
 public:

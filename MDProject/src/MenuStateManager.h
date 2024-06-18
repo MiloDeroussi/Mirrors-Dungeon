@@ -19,6 +19,8 @@ public:
 	sf::Sprite finSprite;
 	float width = 800;
 	float height = 600;
+	bool hilDeath = false;
+	bool isInOpening = false;
 	bool isInMenu = true;
 	bool isInRegles = false;
 	bool isInGame = false;

@@ -8,15 +8,14 @@ class Porte;
 
 class Salle {
 private:
-	int nsalle;
 	std::string id;
+	int nsalle;
+
 public:
 	enum class Type { ESalle, MiniBoss, MediumBoss, Boss, HSalle, USalle };
-	explicit Salle(std::string id, int nsalle);
-
-	void Draw();
-	void DrawDoors();
-	std::string getid();
+	explicit Salle(const std::string& id, int nsalle);
+	std::string getid() const;
+	virtual ~Salle() = default;
 };
 
 #endif // !__SALLE_H__

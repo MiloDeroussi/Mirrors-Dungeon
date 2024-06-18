@@ -1,7 +1,10 @@
-#include <Game.h>
-#include <Gunther.h>
+#include "Game.h"
+#include "Gunther.h"
+#include "Donjon.h"
 #include <sstream>
 #include <iostream>
+#include <chrono>
+#include <thread>
 
 using namespace std;
 
@@ -24,6 +27,10 @@ std::vector<Offensif>& Game::getActiveOffEnnemi() {
 
 std::vector<Ennemi>& Game::getActiveEnnemi() {
 	return activeEnnemi;
+}
+
+std::vector<std::shared_ptr<Salle>>& Game::getRoom() {
+	return shared_room;
 }
 
 sf::RenderWindow& Game::getWindow() {
@@ -96,8 +103,7 @@ void Game::updateStatistics(sf::Time elapsedTime) {
 
 void Game::updateBullets(sf::Time elapsedTime) {
 	int i = 0;
-	std::vector<Balle>& active = gunt.getPistolet().getActiveBalle();
-	for (Balle& bullet : active) {
+	for (std::vector<Balle>& active = gunt.getPistolet().getActiveBalle(); Balle& bullet : active) {
 		bullet.getTime() += elapsedTime;
 		if (bullet.getTime() > sf::seconds(2.0)) {
 			active.erase(active.begin() + i);
@@ -127,7 +133,7 @@ void Game::updateBullets(sf::Time elapsedTime) {
 void Game::update(sf::Time elapsedTime) {
 	if (menuStateMan.isInGame) {
 		spawnBullets += elapsedTime;
-		if (spawnBullets >= sf::seconds(2.0)) {
+		if (spawnBullets >= sf::seconds(3.0)) {
 			spawnBullets = sf::Time::Zero;
 			for (Offensif& ennemi : activeOffEnnemi) {
 				ennemi.shoot();
@@ -136,7 +142,7 @@ void Game::update(sf::Time elapsedTime) {
 		updateStatistics(elapsedTime);
 		updateBullets(elapsedTime);
 	}
-	if (activeEnnemi.empty() && activeOffEnnemi.empty()) {
+	if (activeEnnemi.empty() && activeOffEnnemi.size() == 1 && activeOffEnnemi[0].getPattern() == "hildegarde" && current_room + 1 == shared_room.size()) {
 		sound_bebe.play();
 		menuStateMan.victory = true;
 		menuStateMan.endGame = true;
@@ -144,20 +150,52 @@ void Game::update(sf::Time elapsedTime) {
 		sf::Event event; event.type = sf::Event::MouseButtonPressed;
 		menuStateMan.handleEvent(event, mWindow);
 	}
+
+	if (activeEnnemi.empty() && activeOffEnnemi.size() == 1 && activeOffEnnemi[0].getPattern() == "natas" && current_room + 1 == shared_room.size()) {
+		menuStateMan.victory = false;
+		menuStateMan.hilDeath = true;
+		menuStateMan.endGame = true;
+		menuStateMan.isInGame = false;
+		sf::Event event; event.type = sf::Event::MouseButtonPressed;
+		menuStateMan.handleEvent(event, mWindow);
+	}
+
+	else if (activeEnnemi.empty() && activeOffEnnemi.empty()) {
+
+		if (clock.getElapsedTime().asSeconds() >= 2.0f) {
+			current_room++;
+			loadSalle(shared_room.at(current_room));
+			clock.restart();
+		}
+
+	}
+	else {
+		clock.restart();
+	}
 }
 
-void Game::render() {
+void Game::render_bullet(Offensif& ennemi) {
+	for (const Balle& bullet : ennemi.getActiveBalleEnnemi()) {
+		bullet.render(mWindow);
+	}
+}
+
+void Game::render(shared_ptr<Salle> salle) {
 	mWindow.clear();
 	menuStateMan.render(mWindow);
 	if (menuStateMan.isInGame) {
-		for (const Ennemi& ennemi : getActiveEnnemi()) {
-			ennemi.render(mWindow);
-		}
-		for (Offensif& ennemi : getActiveOffEnnemi()) {
-			ennemi.render(mWindow);
-			for (const Balle& bullet : ennemi.getActiveBalleEnnemi()) {
-				bullet.render(mWindow);
+		if (auto eSallePtr = dynamic_pointer_cast<ESalle>(salle); eSallePtr) {
+			for (const Ennemi& ennemi : getActiveEnnemi()) {
+				ennemi.render(mWindow);
 			}
+			gunt.getPistolet().render(mWindow);
+			for (Offensif& ennemi : getActiveOffEnnemi()) {
+				ennemi.render(mWindow);
+				render_bullet(ennemi);
+			}
+		}
+		else if (auto hSallePtr = dynamic_pointer_cast<HSalle>(salle); hSallePtr) {
+			hSallePtr.get()->render(mWindow);
 		}
 		gunt.getPistolet().render(mWindow);
 		for (const Balle& bullet : gunt.getPistolet().getActiveBalle()) {
@@ -169,17 +207,42 @@ void Game::render() {
 	mWindow.display();
 }
 
+void Game::loadSalle(shared_ptr<Salle> salle) {
+
+	if (auto eSallePtr = dynamic_pointer_cast<ESalle>(salle); eSallePtr) {
+		for (const Ennemi& e : eSallePtr->getEnnemis()) {
+			getActiveEnnemi().push_back(e);
+		}
+		for (const Offensif& e : eSallePtr->getEnnemisOff()) {
+			getActiveOffEnnemi().push_back(e);
+		}
+	}
+	if (auto hSallePtr = dynamic_pointer_cast<HSalle>(salle); hSallePtr) {
+		gunt.doDamage(-hSallePtr->Heal(gunt.getMaxHealth()));
+	}
+}
+
 void Game::run() {
-	auto demon1 = Ennemi(2, 100, 100, "line", "resources/demon_majeur.png", 0);
-	auto demon2 = Offensif(1, 500, 100, "line", "resources/demon_mineur.png", 1);
-	getActiveEnnemi().push_back(demon1); 
-	getActiveOffEnnemi().push_back(demon2);
-	sf::Clock clock;
+	int difficulty = 1;
+	Donjon donjon;
+	std::vector<Salle::Type>& salles = donjon.getDungeonPath();
+
+	for (int i = 0; i < salles.size(); i++) {
+		if (salles.at(i) == Salle::Type::MiniBoss) {
+			difficulty = 2;
+		}
+		donjon.generateSalle(salles, i, difficulty);
+	}
+	for (const auto& s : donjon.getSalles()) {
+		getRoom().push_back(s);
+	}
+	loadSalle(getRoom().at(current_room));
+	sf::Clock clock_;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 	mWindow.setVerticalSyncEnabled(true);
 	while (mWindow.isOpen())
 	{
-		sf::Time elapsedTime = clock.restart();
+		sf::Time elapsedTime = clock_.restart();
 		timeSinceLastUpdate += elapsedTime;
 		while (timeSinceLastUpdate > TimePerFrame)
 		{
@@ -190,7 +253,7 @@ void Game::run() {
 		if (!menuStateMan.endGame) {
 			update(elapsedTime);
 		}
-		render();
+		render(getRoom().at(current_room));
 
 	}
 }

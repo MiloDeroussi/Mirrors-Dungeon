@@ -15,6 +15,9 @@ void Blessable::doDamage(double damage) {
 		health = 0;
 		death();
 	}
+	else if (health > max_health) {
+		health = max_health;
+	}
 }
 
 double Blessable::getHealth() const {

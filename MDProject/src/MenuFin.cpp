@@ -12,7 +12,7 @@ MenuFin::MenuFin(MenuStateManager& manager) : MenuState(manager) {
     winText1.setFillColor(sf::Color::Green);
 
     winText2.setFont(font);
-    winText2.setString("Vous avez vaincu les monstres du donjon !");
+    winText2.setString("Vous avez vaincu nataS et sauvé Hildegarde !");
     winText2.setCharacterSize(30);
     winText2.setPosition(sf::Vector2f(h_width - winText2.getGlobalBounds().width / 2, 300));
 
@@ -26,6 +26,11 @@ MenuFin::MenuFin(MenuStateManager& manager) : MenuState(manager) {
     loseText2.setString("Vous avez péri dans le donjon");
     loseText2.setCharacterSize(30);
     loseText2.setPosition(sf::Vector2f(h_width - loseText2.getGlobalBounds().width / 2, 300));
+
+    loseText3.setFont(font);
+    loseText3.setString("Qu'avez vous fait ? Hildegarde est morte...");
+    loseText3.setCharacterSize(30);
+    loseText3.setPosition(sf::Vector2f(h_width - loseText3.getGlobalBounds().width / 2, 300));
 
     backText.setFont(font);
     backText.setString("Appuyez pour quitter");
@@ -41,7 +46,12 @@ void MenuFin::render(sf::RenderWindow& window) {
     }
     else {
         window.draw(loseText1);
-        window.draw(loseText2);
+        if (manager.hilDeath) {
+            window.draw(loseText3);
+        }
+        else {
+            window.draw(loseText2);
+        }
     }
     window.draw(backText);
 }

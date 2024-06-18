@@ -10,7 +10,7 @@ private:
 	sf::Texture TexturePist;
 	std::vector<Balle> ballePool;
 	std::vector<Balle> activeBalle;
-	int mun_max = 50;
+	int mun_max = 100;
 	sf::Time reload = sf::seconds(2.0);
 
 public:

@@ -1,20 +1,8 @@
 #include "Salle.h"
 #include "Porte.h"
 
-Salle::Salle(std::string id, int nsalle) {
-	this->id = id;
-	this->nsalle = nsalle;
-}
+Salle::Salle(const std::string& id, int nsalle) : id(id), nsalle(nsalle) {}
 
-void Salle::Draw() {
-
-}
-
-void Salle::DrawDoors() {
-
-}
-
-std::string Salle::getid()
-{
-	return this->id ;
+std::string Salle::getid() const {
+	return this->id;
 }

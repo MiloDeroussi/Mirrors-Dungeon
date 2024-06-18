@@ -1,4 +1,5 @@
 #include "Menu.h"
+#include "MenuOpening.h"
 #include "MenuInGame.h"
 #include "MenuOptions.h"
 #include "MenuStateManager.h"
@@ -58,9 +59,9 @@ void Menu::handleMouseClick(const sf::Vector2f& mousePosition, sf::RenderWindow&
         if (menuItems[i].getGlobalBounds().contains(mousePosition)) {
             switch (i) {
             case 0: // Jouer
-                manager.isInGame = true;
+                manager.isInOpening = true;
                 manager.isInMenu = false;
-                manager.changeState(std::make_unique<MenuInGame>(manager));
+                manager.changeState(std::make_unique<MenuOpening>(manager));
                 break;
             case 1: // Règles
                 manager.isInRegles = true;

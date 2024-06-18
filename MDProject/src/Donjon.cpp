@@ -1,39 +1,39 @@
 #include "Donjon.h"
 #include <iostream>
 
-Donjon::Donjon(): gen(rd()) {
+Donjon::Donjon() : gen(rd()) {
 	if (auto result = doc.load_file("resources/salles.xml"); !result)
-    {
-        std::cerr << "Could not open file salles.xml because " << result.description() << std::endl;
-    }
+	{
+		std::cerr << "Could not open file salles.xml because " << result.description() << std::endl;
+	} 
 	racine = doc.document_element();
-}
+	using enum Salle::Type;
 
-std::vector<Salle::Type> Donjon::GenerateDungeon() const {
 	pugi::xml_node node;
-	std::vector<Salle::Type> donjon = {
-		Salle::Type::ESalle,
-		Salle::Type::ESalle,
-		Salle::Type::USalle,
-		Salle::Type::ESalle,
-		Salle::Type::ESalle,
-		Salle::Type::USalle,
-		Salle::Type::MiniBoss,
-		Salle::Type::HSalle,
-		Salle::Type::ESalle,
-		Salle::Type::ESalle,
-		Salle::Type::USalle,
-		Salle::Type::ESalle,
-		Salle::Type::ESalle,
-		Salle::Type::USalle,
-		Salle::Type::MediumBoss,
-		Salle::Type::HSalle,
-		Salle::Type::Boss
+	donjon_path = {
+		ESalle,
+		ESalle,
+
+		MiniBoss,
+		HSalle,
+
+		ESalle,
+		ESalle,
+
+		HSalle,
+		Boss
 	};
-	return donjon;
 }
 
-Salle Donjon::generateSalle(std::vector<Salle::Type> donjon, int index, int difficulty) {
+std::vector<std::shared_ptr<Salle>>& Donjon::getSalles() {
+	return salles;
+}
+
+std::vector<Salle::Type>& Donjon::getDungeonPath() {
+	return donjon_path;
+}
+
+void Donjon::generateSalle(std::vector<Salle::Type> donjon, int index, int difficulty) {
 	pugi::xml_node node;
 	pugi::xml_node room;
 	if (donjon.at(index) == Salle::Type::USalle) {
@@ -56,51 +56,44 @@ Salle Donjon::generateSalle(std::vector<Salle::Type> donjon, int index, int diff
 		else if (difficulty == 1) {
 			node = node.child("difficulty_rank_1");
 		}
-		else if (difficulty == 2){
+		else if (difficulty == 2) {
 			node = node.child("difficulty_rank_2");
 		}
 	}
 
 	int randnode = 0;
 
-	int nb = std::distance(node.children("salle").begin(), node.children("salle").end());
 
-	if (nb == 0){
-		printf("No node found\n");
+	if (auto nb = (int)std::distance(node.children("salle").begin(), node.children("salle").end()); nb == 0) {
+		std::cout << "No node found\n";
 	}
 	else {
-		std::uniform_int_distribution<> dis(0, nb-1);
+		std::uniform_int_distribution dis(0, nb - 1);
 		randnode = dis(gen);
 	}
-		
-	nb = 0;
+
+	int i = 0;
 	for (auto n : node.children()) {
-		if (nb == randnode) {
+		if (i == randnode) {
 			room = n;
 			break;
 		}
-		nb++;
+		i++;
 	}
-	printf(room.child_value("id"));
-	
+	std::cout << room.child_value("id");
 
 	if (donjon.at(index) == Salle::Type::USalle) {
-		auto salle = USalle(room.attribute("id").as_string(), index, room.attribute("nb_upgrade").as_int());
+		auto salle = std::make_shared<USalle>(room.attribute("id").as_string(), index, room.attribute("nb_upgrade").as_int());
 		salles.push_back(salle);
-		return salle;
+
 	}
 	else if (donjon.at(index) == Salle::Type::HSalle) {
-		auto salle = HSalle(room.attribute("id").value(), index,room.attribute("heal").as_int());
+		auto salle = std::make_shared<HSalle>(room.attribute("id").value(), index, room.attribute("heal").as_int());
 		salles.push_back(salle);
-		return salle;
+
 	}
 	else {
-		auto salle = ESalle(room.attribute("id").value(), index, room);
+		auto salle = std::make_shared<ESalle>(room.attribute("id").value(), index, room);
 		salles.push_back(salle);
-		return salle;
 	}
-	
-	
-	
 }
-

@@ -2,8 +2,7 @@
 #include "Salle.h"
 
 
-Porte::Porte(Salle *salle, bool isRight) {
-	this->salle = salle;
+Porte::Porte(Salle* salle, bool isRight) : salle(salle) {
 	if (isRight) {
 		x = 1;
 		y = 1;
@@ -15,6 +14,4 @@ Porte::Porte(Salle *salle, bool isRight) {
 	xshape = 1; yshape = 1;
 }
 
-Porte::Porte() {}
-
-void Porte::onClick() {}
+void Porte::onClick() const {/* Pour le futur */}

@@ -4,17 +4,20 @@
 #include "Blessable.h"
 #include <string>
 #include <vector>
+#include <memory>
 
 class Ennemi : public Blessable {
 private:
-	sf::Texture TextureEnnemi;
+	std::shared_ptr<sf::Texture> TextureEnnemi;
 	sf::Sprite EnnemiSprite;
 	std::string MovePattern;
+	std::string text;
 	double attack;
 
 public:
 	explicit Ennemi(double health, double x, double y, const std::string& pattern, const std::string& text, double attack);
 	virtual ~Ennemi();
+	std::string getText() const;
 	sf::Sprite& getEnnemiSprite();
 	std::string getPattern() const;
 	double getAttack() const;

@@ -22,13 +22,13 @@ void Offensif::shoot() {
 
 		std::random_device rd;
 		std::mt19937 gen(rd());
-		std::uniform_real_distribution<> disX(getEnnemiSprite().getPosition().x - 100, getEnnemiSprite().getPosition().x + 100);
-		std::uniform_real_distribution<> disY(getEnnemiSprite().getPosition().y - 100, getEnnemiSprite().getPosition().y + 100);
+		std::uniform_real_distribution<> disX(-100, 100);
+		std::uniform_real_distribution<> disY(-100, 100);
 
 		double offsetX = disX(gen);
 		double offsetY = disY(gen);
 
-		cur.getSprite().setPosition(float(offsetX), float(offsetY));
+		cur.getSprite().setPosition(getEnnemiSprite().getPosition().x + getEnnemiSprite().getGlobalBounds().width/2 + float(offsetX), getEnnemiSprite().getPosition().y + getEnnemiSprite().getGlobalBounds().height / 2 + float(offsetY));
 		cur.getSprite().setTexture(cur.getTexture());
 		cur.getSprite().setScale(float(0.1), float(0.1));
 		cur.getSprite().setColor(sf::Color::Red);

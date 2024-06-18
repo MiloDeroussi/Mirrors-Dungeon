@@ -6,10 +6,12 @@
 using namespace std;
 
 Game::Game() {
+	buffer.loadFromFile("resources/Bebe.mp3");
 	mFont.loadFromFile("resources/Sansation.ttf");
 	mStatisticsText.setFont(mFont);
 	mStatisticsText.setPosition(5.f, 5.f);
 	mStatisticsText.setCharacterSize(20);
+	sound_bebe.setBuffer(buffer);
 }
 
 Gunther& Game::getGunther() {
@@ -135,6 +137,7 @@ void Game::update(sf::Time elapsedTime) {
 		updateBullets(elapsedTime);
 	}
 	if (activeEnnemi.empty() && activeOffEnnemi.empty()) {
+		sound_bebe.play();
 		menuStateMan.victory = true;
 		menuStateMan.endGame = true;
 		menuStateMan.isInGame = false;
@@ -168,7 +171,7 @@ void Game::render() {
 
 void Game::run() {
 	auto demon1 = Ennemi(2, 100, 100, "line", "resources/demon_majeur.png", 0);
-	auto demon2 = Offensif(2, 500, 100, "line", "resources/demon_mineur.png", 1);
+	auto demon2 = Offensif(1, 500, 100, "line", "resources/demon_mineur.png", 1);
 	getActiveEnnemi().push_back(demon1); 
 	getActiveOffEnnemi().push_back(demon2);
 	sf::Clock clock;
@@ -184,7 +187,9 @@ void Game::run() {
 			gunt.getPistolet().getReloadTime() += elapsedTime;
 			processEvents();
 		}
-		update(elapsedTime);
+		if (!menuStateMan.endGame) {
+			update(elapsedTime);
+		}
 		render();
 
 	}

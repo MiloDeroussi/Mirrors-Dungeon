@@ -1,5 +1,6 @@
 #pragma once
 #include "SFML/Graphics.hpp"
+#include "SFML/Audio.hpp"
 #include "RoundTarget.h"
 #include <vector>
 #include "Gunther.h"
@@ -18,6 +19,8 @@ private:
 	std::vector<Ennemi> activeEnnemi;
 	bool isDraggingBouclier = false;
 	bool isDraggingPistolet = false;
+	sf::SoundBuffer buffer;
+	sf::Sound sound_bebe;
 	sf::Text mStatisticsText;
 	sf::Font mFont;
 	MenuStateManager menuStateMan;

@@ -140,7 +140,7 @@ namespace GameTesting {
         };
 
 
-        std::vector<Salle::Type> salles = donjon.GenerateDungeon();
+        std::vector<Salle::Type>& salles = donjon.getDungeonPath();
 
         EXPECT_EQ(salles.size(), expected_salles.size());
         for (int i = 0; i < expected_salles.size(); i++) {
@@ -154,14 +154,5 @@ namespace GameTesting {
         std::vector<std::shared_ptr<Salle>> shared_room = donjon.getSalles();
         EXPECT_EQ(shared_room.size(), expected_salles.size());
         auto const& salle = std::move(shared_room.at(4));
-        
-        if (auto eSallePtr = std::dynamic_pointer_cast<ESalle>(salle); eSallePtr) {
-            eSallePtr->GenerateEnnemis();
-        }
-            
-        auto hSallePtr = std::dynamic_pointer_cast<HSalle>(salle);
-        if (hSallePtr) {
-               
-        }
     }
 }

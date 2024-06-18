@@ -1,0 +1,191 @@
+<?xml version="1.0"?>
+<pool>
+	<esalle>
+		<difficulty_rank_1>
+			<salle id="es1" nb_enemies="1" >
+				<ennemi id ="demon" xpos="300" ypos="200" pattern="h_line">
+				</ennemi>
+			</salle>
+
+			<salle id="es2" nb_enemies="3">
+				<ennemi id ="demon_mineur" xpos="100" ypos="100" pattern="v_line">
+				</ennemi>
+				<ennemi id ="demon_mineur" xpos="500" ypos="100" pattern="v_line">
+				</ennemi>
+				<ennemi id ="demon_mineur" xpos="300" ypos="200" pattern="v_line">
+				</ennemi>
+			</salle>
+
+			<salle id="es3" nb_enemies="1">
+
+				<ennemi id ="demon" xpos="300" ypos="200" pattern="v_line">
+				</ennemi>
+			</salle>
+
+			<salle id="es4" nb_enemies="2">
+
+				<ennemi id ="demon_shield" xpos="200" ypos="400" pattern="h_line">
+				</ennemi>
+
+				<ennemi id ="demon_shield" xpos="400" ypos="200" pattern="h_line">
+				</ennemi>
+
+			</salle>
+
+			<salle id="es5" nb_enemies="2">
+
+				<ennemi id ="demon" xpos="200" ypos="400" pattern="h_line">
+				</ennemi>
+
+				<ennemi id ="demon_shield" xpos="400" ypos="200" pattern="h_line">
+				</ennemi>
+
+			</salle>
+
+			<salle id="es6" nb_enemies="3">
+				<ennemi id ="demon_mineur" xpos="100" ypos="200" pattern="h_line">
+				</ennemi>
+				<ennemi id ="demon_mineur" xpos="300" ypos="100" pattern="h_line">
+				</ennemi>
+				<ennemi id ="demon_mineur" xpos="500" ypos="200" pattern="h_line">
+				</ennemi>
+			</salle>
+
+			<salle id="es7" nb_enemies="1">
+				<ennemi id ="demon" xpos="300" ypos="200" pattern="circle">
+				</ennemi>
+			</salle>
+
+			<salle id="es8" nb_enemies="2">
+				<ennemi id ="demon" xpos="400" ypos="200" pattern="v_line">
+				</ennemi>
+				<ennemi id ="demon" xpos="200" ypos="200" pattern="v_line">
+				</ennemi>
+			</salle>
+		</difficulty_rank_1>
+
+		<mini_boss>
+			<salle id="mb1" nb_enemies="3">
+				<ennemi id ="demon_majeur" xpos="300" ypos="200" pattern="circle">
+				</ennemi>
+				<ennemi id ="demon_miroir" xpos="100" ypos="100" pattern="h_line">
+				</ennemi>
+				<ennemi id ="demon_miroir" xpos="500" ypos="100" pattern="h_line">
+				</ennemi>
+			</salle>
+
+			<salle id="mb2" nb_enemies="3">
+				<ennemi id ="demon_majeur" xpos="300" ypos="200" pattern="circle">
+				</ennemi>
+				<ennemi id ="demon" xpos="100" ypos="100" pattern="v_line">
+				</ennemi>
+				<ennemi id ="demon" xpos="500" ypos="100" pattern="v_line">
+				</ennemi>
+			</salle>
+		</mini_boss>
+
+		<difficulty_rank_2>
+
+			<salle id="es9" nb_enemies="1">
+				<ennemi id ="beholder" xpos="300" ypos="200" pattern="circle">
+				</ennemi>
+			</salle>
+
+			<salle id="es10" nb_enemies="2">
+				<ennemi id ="demon" xpos="300" ypos="200" pattern="v_line">
+				</ennemi>
+				<ennemi id ="demon" xpos="300" ypos="400" pattern="v_line">
+				</ennemi>
+			</salle>
+
+			<salle id="es11" nb_enemies="2">
+				<ennemi id ="demon_miroir" xpos="100" ypos="200" pattern="h_line">
+				</ennemi>
+				<ennemi id ="demon_miroir" xpos="500" ypos="200" pattern="h_line">
+				</ennemi>
+			</salle>
+
+			<salle id="es12" nb_enemies="2">
+				<ennemi id ="demon_miroir" xpos="200" ypos="400" pattern="v_line">
+				</ennemi>
+				<ennemi id ="beholder" xpos="300" ypos="200" pattern="circle">
+				</ennemi>
+			</salle>
+
+			<salle id="es13" nb_enemies="4">
+				<ennemi id ="demon" xpos="200" ypos="200" pattern="h_line">
+				</ennemi>
+				<ennemi id ="demon_miroir" xpos="400" ypos="200" pattern="v_line">
+				</ennemi>
+				<ennemi id ="demon" xpos="400" ypos="400" pattern="h_line">
+				</ennemi>
+				<ennemi id ="demon_miroir" xpos="200" ypos="400" pattern="v_line">
+				</ennemi>
+			</salle>
+
+			<salle id="es14" nb_enemies="5">
+				<ennemi id ="demon" xpos="200" ypos="400" pattern="static">
+				</ennemi>
+				<ennemi id ="demon" xpos="200" ypos="200" pattern="static">
+				</ennemi>
+				<ennemi id ="demon" xpos="400" ypos="400" pattern="static">
+				</ennemi>
+				<ennemi id ="demon" xpos="400" ypos="200" pattern="static">
+				</ennemi>
+				<ennemi id ="demon" xpos="300" ypos="300" pattern="static">
+				</ennemi>
+			</salle>
+
+			<salle id="es15" nb_enemies="1">
+				<ennemi id ="demon_mineur" xpos="400" ypos="300" pattern="circle">
+				</ennemi>
+			</salle>
+
+			<salle id="es16" nb_enemies="2">
+				<ennemi id ="beholder" xpos="200" ypos="200" pattern="v_line">
+				</ennemi>
+				<ennemi id ="beholder" xpos="400" ypos="200" pattern="v_line">
+				</ennemi>
+			</salle>
+		</difficulty_rank_2>
+
+		<medium_boss>
+			<salle id="lb1" nb_enemies="1">
+				<ennemi id ="natas" xpos="300" ypos="200" pattern="natas">
+				</ennemi>
+			</salle>
+		</medium_boss>
+
+		<boss>
+			<salle id="b1" nb_enemies="2">
+				<ennemi id ="hildegarde" xpos="200" ypos="200" pattern="hildegarde">
+				</ennemi>
+				<ennemi id ="natas" xpos="400" ypos="200" pattern="natas">
+				</ennemi>
+			</salle>
+		</boss>
+	</esalle>
+
+	<hsalle>
+		<salle id="hs1" heal="25">
+		</salle>
+		<salle id="hs1" heal="50">
+		</salle>
+		<salle id="hs1" heal="75">
+		</salle>
+		<salle id="hs1" heal="100">
+		</salle>
+	</hsalle>
+
+	<usalle>
+		<salle id="us1" nb_upgrade="1">
+		</salle>
+		<salle id="us2" nb_upgrade="2">
+		</salle>
+		<salle id="us3" nb_upgrade="3">
+		</salle>
+	</usalle>
+
+</pool>
+
+

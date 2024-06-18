@@ -41,7 +41,7 @@ namespace GameTesting {
         Gunther& gunt = game.getGunther();
         sf::Vector2f newPosition(gunt.getBouclier().getSprite().getPosition());
         sf::Event event1;
-        event1.type = sf::Event::MouseButtonPressed; event1.mouseButton.button = sf::Mouse::Left;
+        event1.type = sf::Event::MouseButtonPressed; event1.mouseButton.button = sf::Mouse::Right;
         sf::Mouse::setPosition(sf::Vector2i(newPosition), game.getWindow());
         game.draganddrop(event1);
 
@@ -51,7 +51,7 @@ namespace GameTesting {
         game.draganddrop(event2);
 
         sf::Event event3;
-        event3.type = sf::Event::MouseButtonReleased; event3.mouseButton.button = sf::Mouse::Left;
+        event3.type = sf::Event::MouseButtonReleased; event3.mouseButton.button = sf::Mouse::Right;
         game.draganddrop(event3);
 
         sf::Vector2f bouclierPosition = gunt.getBouclier().getSprite().getPosition();
@@ -59,7 +59,7 @@ namespace GameTesting {
         EXPECT_EQ(bouclierPosition.y, moveto.y - gunt.getBouclier().getSprite().getGlobalBounds().height / 2);
 
         newPosition = gunt.getBouclier().getSprite().getPosition();
-        event1.type = sf::Event::MouseButtonPressed; event1.mouseButton.button = sf::Mouse::Right;
+        event1.type = sf::Event::MouseButtonPressed; event1.mouseButton.button = sf::Mouse::Left;
         sf::Mouse::setPosition(sf::Vector2i(newPosition), game.getWindow());
         game.draganddrop(event1);
 
@@ -67,7 +67,7 @@ namespace GameTesting {
         sf::Mouse::setPosition(sf::Vector2i(moveto2), game.getWindow());
         game.draganddrop(event2);
 
-        event3.type = sf::Event::MouseButtonReleased; event3.mouseButton.button = sf::Mouse::Right;
+        event3.type = sf::Event::MouseButtonReleased; event3.mouseButton.button = sf::Mouse::Left;
         game.draganddrop(event3);
 
         bouclierPosition = gunt.getBouclier().getSprite().getPosition();
@@ -80,7 +80,7 @@ namespace GameTesting {
         Gunther& gunt = game.getGunther();
         sf::Vector2f newPosition(gunt.getPistolet().getSprite().getPosition());
         sf::Event event1;
-        event1.type = sf::Event::MouseButtonPressed; event1.mouseButton.button = sf::Mouse::Right;
+        event1.type = sf::Event::MouseButtonPressed; event1.mouseButton.button = sf::Mouse::Left;
         sf::Mouse::setPosition(sf::Vector2i(newPosition), game.getWindow());
         game.draganddrop(event1);
 
@@ -90,15 +90,15 @@ namespace GameTesting {
         game.draganddrop(event2);
 
         sf::Event event3;
-        event3.type = sf::Event::MouseButtonReleased; event3.mouseButton.button = sf::Mouse::Right;
+        event3.type = sf::Event::MouseButtonReleased; event3.mouseButton.button = sf::Mouse::Left;
         game.draganddrop(event3);
 
         sf::Vector2f pistoletPosition = gunt.getPistolet().getSprite().getPosition();
-        EXPECT_FLOAT_EQ(pistoletPosition.x, moveto.x - gunt.getPistolet().getSprite().getGlobalBounds().width * 3 / 4);
+        EXPECT_FLOAT_EQ(pistoletPosition.x, moveto.x - gunt.getPistolet().getSprite().getGlobalBounds().width * 1 / 4);
         EXPECT_FLOAT_EQ(pistoletPosition.y, moveto.y - gunt.getPistolet().getSprite().getGlobalBounds().height * 3 / 4);
 
         newPosition = gunt.getPistolet().getSprite().getPosition();
-        event1.type = sf::Event::MouseButtonPressed; event1.mouseButton.button = sf::Mouse::Left;
+        event1.type = sf::Event::MouseButtonPressed; event1.mouseButton.button = sf::Mouse::Right;
         sf::Mouse::setPosition(sf::Vector2i(newPosition), game.getWindow());
         game.draganddrop(event1);
 
@@ -106,11 +106,11 @@ namespace GameTesting {
         sf::Mouse::setPosition(sf::Vector2i(moveto2), game.getWindow());
         game.draganddrop(event2);
 
-        event3.type = sf::Event::MouseButtonReleased; event3.mouseButton.button = sf::Mouse::Left;
+        event3.type = sf::Event::MouseButtonReleased; event3.mouseButton.button = sf::Mouse::Right;
         game.draganddrop(event3);
 
         pistoletPosition = gunt.getPistolet().getSprite().getPosition();
-        EXPECT_FALSE(pistoletPosition.x == moveto2.x - gunt.getPistolet().getSprite().getGlobalBounds().width * 3 / 4);
+        EXPECT_FALSE(pistoletPosition.x == moveto2.x - gunt.getPistolet().getSprite().getGlobalBounds().width * 1 / 4);
         EXPECT_FALSE(pistoletPosition.y == moveto2.y - gunt.getPistolet().getSprite().getGlobalBounds().height * 3 / 4);
     }
     
